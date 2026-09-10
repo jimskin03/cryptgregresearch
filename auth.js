@@ -1,9 +1,28 @@
+// @ts-nocheck
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = 'https://vlnocfdiexkqcnfbjhqt.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_ys0Cl98LLqAdNEiNY1f7Mg_lddIzr6F';
+const sharedCookieStorage = {
+  getItem(key) {
+    const cookie = document.cookie.split('; ').find((item) => item.startsWith(`${key}=`));
+    if (cookie) return decodeURIComponent(cookie.slice(key.length + 1));
+    const legacy = window.localStorage.getItem(key);
+    if (legacy) this.setItem(key, legacy);
+    return legacy;
+  },
+  setItem(key, value) {
+    document.cookie = `${key}=${encodeURIComponent(value)}; Max-Age=31536000; Path=/; Domain=.cryptgregresearch.org; Secure; SameSite=Lax`;
+    window.localStorage.setItem(key, value);
+  },
+  removeItem(key) {
+    document.cookie = `${key}=; Max-Age=0; Path=/; Domain=.cryptgregresearch.org; Secure; SameSite=Lax`;
+    window.localStorage.removeItem(key);
+  },
+};
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: sharedCookieStorage },
 });
 
 const dialog = document.querySelector('#auth-dialog');
