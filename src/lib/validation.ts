@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const ProjectStatusSchema = z.enum(['LIVE', 'EXPERIMENTAL', 'IN DEVELOPMENT', 'CONCEPT', 'ARCHIVED', 'OFFLINE', 'FEATURED', 'UNVERIFIED', 'CONCEPT / IN DEVELOPMENT']);
+export const ProjectStatusSchema = z.enum(['LIVE', 'EXPERIMENTAL', 'IN DEVELOPMENT', 'CONCEPT', 'ARCHIVED', 'OFFLINE', 'UNVERIFIED']);
 export const ResearchStatusSchema = z.enum(['DRAFT', 'EXPERIMENTAL', 'PREPRINT', 'PUBLISHED', 'RETRACTED']);
 export const EvidenceStatusSchema = z.enum(['VERIFIED', 'UNVERIFIED', 'HISTORICAL', 'PENDING']);
 

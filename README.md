@@ -24,5 +24,6 @@ The homepage is implemented by `src/components/LegacyHome.astro` with the unchan
 - `src/components/` contains reusable presentation components.
 - `src/pages/api/` exposes read-only JSON resources. `/projects.json` is a compatibility representation generated from the typed project registry.
 - `src/scripts/auth.ts` contains the optional Supabase magic-link flow. Set `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY` to enable it.
+- Root index.html, uth.js, and JSON files are retained only as legacy branch/URL compatibility fallbacks; Astro source and its generated routes are canonical.
 
 The public Eastern Paradise run is explicitly marked as fixture data until it is replaced by a dated, source-linked observation. Only observable outputs belong in datasets. Private model reasoning and chain-of-thought are explicitly excluded.

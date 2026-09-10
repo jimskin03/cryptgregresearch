@@ -6,7 +6,7 @@ export const GET: APIRoute = () => {
     id: project.id,
     name: project.name,
     description: project.description,
-    status: project.status,
+    status: project.featured ? 'FEATURED' : project.id === 'beacon-relay' ? 'CONCEPT / IN DEVELOPMENT' : project.status,
     status_checked_at: project.statusCheckedAt ?? projectRegistryLastUpdated,
     host: project.externalUrl ? new URL(project.externalUrl).host : null,
     url: project.externalUrl ?? null,

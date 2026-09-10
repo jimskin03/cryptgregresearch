@@ -2,11 +2,77 @@
   "schema_version": "1.0",
   "last_updated": "2026-09-10T00:00:00Z",
   "projects": [
-    {"id":"eastern-paradise","name":"Eastern Paradise","description":"A transparent sanctuary economy built for inspection.","status":"FEATURED","status_checked_at":"2026-09-10T00:00:00Z","host":"eastern-paradise.onrender.com","url":"https://simulation.cryptgregresearch.org/","project_type":"simulation"},
-    {"id":"nightshift","name":"Nightshift / Template Demo","description":"A public-facing experiment in rapid web interfaces.","status":"UNVERIFIED","status_checked_at":"2026-09-10T00:00:00Z","host":"template.cryptgregresearch.org/","url":"https://template.cryptgregresearch.org/","project_type":"web experiment","verification_note":"Browser-side verification deferred; server check did not resolve."},
-    {"id":"verdium-storm","name":"Verdium Storm","description":"A focused interface for exploring the Verdium concept.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"verdiumstorm.vercel.app","url":"https://verdiumstorm.cryptgregresearch.org/","project_type":"web application"},
-    {"id":"multi-chain-tracker","name":"Chain Intelligence","description":"Read-only wallet intelligence across Bitcoin, Solana, and XRP Ledger.","status":"UNVERIFIED","status_checked_at":"2026-09-10T00:00:00Z","host":"crypto.cryptgregresearch.org","url":"https://crypto.cryptgregresearch.org/","project_type":"on-chain dashboard","verification_note":"Vercel deployment reported; custom-domain DNS and HTTPS verification pending."},
-    {"id":"expense-tracker","name":"Expense Tracker + Compound Calculator","description":"Ledger: a practical personal finance tool with an integrated compound-growth calculator.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"jimskin03.github.io","url":"https://expensetracker.cryptgregresearch.org/","project_type":"web application + utility"},
-    {"id":"beacon-relay","name":"Beacon Relay","description":"An agentic + human play concept under active exploration.","status":"CONCEPT / IN DEVELOPMENT","status_checked_at":"2026-09-10T00:00:00Z","host":"beacon-relay-gregy.onrender.com","url":"https://beacon-relay-gregy.onrender.com/","project_type":"research experiment","verification_note":"Concept status; no live-service claim."}
+    {
+      "id": "eastern-paradise",
+      "name": "Eastern Paradise",
+      "description": "A transparent sanctuary economy built for inspection.",
+      "status": "FEATURED",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "simulation.cryptgregresearch.org",
+      "url": "https://simulation.cryptgregresearch.org/",
+      "project_type": "simulation",
+      "verification_note": null,
+      "is_fixture": true
+    },
+    {
+      "id": "nightshift",
+      "name": "Nightshift / Template Demo",
+      "description": "A public-facing experiment in rapid web interfaces.",
+      "status": "UNVERIFIED",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "template.cryptgregresearch.org",
+      "url": "https://template.cryptgregresearch.org/",
+      "project_type": "web experiment",
+      "verification_note": "Browser-side verification deferred; server check did not resolve.",
+      "is_fixture": true
+    },
+    {
+      "id": "verdium-storm",
+      "name": "Verdium Storm",
+      "description": "A focused interface for exploring the Verdium concept.",
+      "status": "LIVE",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "verdiumstorm.cryptgregresearch.org",
+      "url": "https://verdiumstorm.cryptgregresearch.org/",
+      "project_type": "web application",
+      "verification_note": null,
+      "is_fixture": false
+    },
+    {
+      "id": "chain-intelligence",
+      "name": "Chain Intelligence",
+      "description": "Read-only wallet intelligence across Bitcoin, Solana, and XRP Ledger.",
+      "status": "UNVERIFIED",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "crypto.cryptgregresearch.org",
+      "url": "https://crypto.cryptgregresearch.org/",
+      "project_type": "on-chain dashboard",
+      "verification_note": "Vercel deployment reported; custom-domain DNS and HTTPS verification pending.",
+      "is_fixture": true
+    },
+    {
+      "id": "expense-tracker",
+      "name": "Expense Tracker + Compound Calculator",
+      "description": "Ledger: a practical personal finance tool with an integrated compound-growth calculator.",
+      "status": "LIVE",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "expensetracker.cryptgregresearch.org",
+      "url": "https://expensetracker.cryptgregresearch.org/",
+      "project_type": "web application + utility",
+      "verification_note": null,
+      "is_fixture": false
+    },
+    {
+      "id": "beacon-relay",
+      "name": "Beacon Relay",
+      "description": "An agentic + human play concept under active exploration.",
+      "status": "CONCEPT / IN DEVELOPMENT",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "beacon-relay-gregy.onrender.com",
+      "url": "https://beacon-relay-gregy.onrender.com/",
+      "project_type": "research experiment",
+      "verification_note": "Concept status; no live-service claim.",
+      "is_fixture": true
+    }
   ]
 }
