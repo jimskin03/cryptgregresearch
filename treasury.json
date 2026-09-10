@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-09-10T00:00:00Z",
+  "read_only": true,
+  "treasury": [
+    {"id":"treasury-wallet","label":"Treasury wallet","value":null,"status":"UNVERIFIED","source":null},
+    {"id":"sol-balance","label":"SOL balance","value":null,"status":"UNVERIFIED","source":null},
+    {"id":"reserve-ratio","label":"Reserve ratio","value":null,"status":"HISTORICAL","source":null}
+  ],
+  "disclaimer":"On-chain figures are unaudited and remain placeholders until linked to verified sources."
+}

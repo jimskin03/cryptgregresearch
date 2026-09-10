@@ -7,6 +7,9 @@
   "resources": {
     "projects": "/projects.json",
     "research": "/research.json",
+    "treasury": "/treasury.json",
+    "land": "/land.json",
+    "receipts": "/receipts.json",
     "privacy": "/privacy.html"
   },
   "policies": {
