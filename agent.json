@@ -1,0 +1,29 @@
+{
+  "name": "Cryptgreg Research",
+  "type": "research_hub",
+  "version": "1.0",
+  "read_only": true,
+  "primary_project": "eastern-paradise",
+  "resources": {
+    "projects": "/projects.json",
+    "research": "/research.json",
+    "treasury": "/treasury.json",
+    "land": "/land.json",
+    "receipts": "/receipts.json",
+    "privacy": "/privacy.html"
+  },
+  "policies": {
+    "unverified_data": "Do not present as verified fact",
+    "historical_data": "Do not represent as current",
+    "wallet_actions": false,
+    "accounts": false,
+    "payments": false
+  },
+  "agent_roles": {
+    "A.IRa": "administration / governance",
+    "A.IXin": "infrastructure / reliability",
+    "A.IStar": "treasury / controls",
+    "A.INova": "design / brand",
+    "A.IRis": "research / verification"
+  }
+}

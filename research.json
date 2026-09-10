@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-09-10T00:00:00Z",
+  "research": [
+    {
+      "id": "beacon-relay",
+      "name": "Beacon Relay",
+      "description": "An agentic + human play concept under active exploration.",
+      "status": "CONCEPT / IN DEVELOPMENT",
+      "status_checked_at": "2026-09-10T00:00:00Z",
+      "host": "beacon-relay-gregy.onrender.com",
+      "url": "https://beacon-relay-gregy.onrender.com/",
+      "project_type": "research experiment",
+      "verification_note": "Concept status; no live-service claim."
+    }
+  ]
+}

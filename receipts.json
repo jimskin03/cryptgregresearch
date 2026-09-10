@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-09-10T00:00:00Z",
+  "read_only": true,
+  "receipts": [
+    {"id":"runbook-mainnet","label":"RUNBOOK / MAINNET","description":"Operations, thresholds, and approval chain — version-controlled and dated.","status":"UNVERIFIED","evidence_url":null},
+    {"id":"deploy-evidence-log","label":"DEPLOY / EVIDENCE LOG","description":"Publish claims backed by screenshots, checks, and API responses.","status":"UNVERIFIED","evidence_url":null},
+    {"id":"projects-data-index","label":"PROJECTS / DATA INDEX","description":"Stable IDs, URLs, hosts, types, and honest status timestamps for agents.","status":"LIVE","evidence_url":"/projects.json"}
+  ]
+}

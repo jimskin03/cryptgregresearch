@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-09-10T00:00:00Z",
+  "read_only": true,
+  "plots": [
+    {"id":"EP-0001","status":"OWNED","description":"Filled node motif","evidence_status":"UNVERIFIED","evidence_url":null},
+    {"id":"EP-0002","status":"OPEN","description":"Concentric survey motif","evidence_status":"UNVERIFIED","evidence_url":null},
+    {"id":"EP-0003","status":"UPCOMING","description":"Cross-grid motif","evidence_status":"UNVERIFIED","evidence_url":null}
+  ],
+  "disclaimer":"Plot ownership and registry records are not independently verified on this site."
+}
