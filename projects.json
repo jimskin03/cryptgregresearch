@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "last_updated": "2026-09-10T00:00:00Z",
   "projects": [
-    {"id":"eastern-paradise","name":"Eastern Paradise","description":"A transparent sanctuary economy built for inspection.","status":"FEATURED","status_checked_at":"2026-09-10T00:00:00Z","host":"eastern-paradise.onrender.com","url":"https://eastern-paradise.onrender.com/","project_type":"simulation"},
+    {"id":"eastern-paradise","name":"Eastern Paradise","description":"A transparent sanctuary economy built for inspection.","status":"FEATURED","status_checked_at":"2026-09-10T00:00:00Z","host":"eastern-paradise.onrender.com","url":"https://simulation.cryptgregresearch.org//","project_type":"simulation"},
     {"id":"solana-tracker","name":"Solana Tracker","description":"SOL ecosystem signals for the Eastern Paradise stack.","status":"UNVERIFIED","status_checked_at":"2026-09-10T00:00:00Z","host":"solana.free.je","url":"https://solana.free.je/","project_type":"on-chain dashboard","verification_note":"Browser-side verification deferred; server check did not resolve."},
     {"id":"nightshift","name":"Nightshift / Template Demo","description":"A public-facing experiment in rapid web interfaces.","status":"UNVERIFIED","status_checked_at":"2026-09-10T00:00:00Z","host":"templatedemo.ct.ws","url":"https://templatedemo.ct.ws/","project_type":"web experiment","verification_note":"Browser-side verification deferred; server check did not resolve."},
     {"id":"verdium-storm","name":"Verdium Storm","description":"A focused interface for exploring the Verdium concept.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"verdiumstorm.vercel.app","url":"https://verdiumstorm.vercel.app/","project_type":"web application"},
