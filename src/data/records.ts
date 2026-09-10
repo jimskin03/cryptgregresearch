@@ -11,24 +11,24 @@ export const projects: Project[] = [
   {
     id: 'verdium-storm', name: 'Verdium Storm', strapline: 'Stress-testing decisions at the edge.',
     description: 'A set of adversarial environments for studying model behaviour under uncertainty, pressure, and incomplete information.',
-    status: 'EXPERIMENTAL', kind: 'BEHAVIOUR STUDY', featured: true,
+    status: 'EXPERIMENTAL', kind: 'BEHAVIOUR STUDY', externalUrl: 'https://verdiumstorm.cryptgregresearch.org/', featured: true,
     metrics: [{ label: 'SCENARIOS', value: '12' }, { label: 'EVIDENCE ITEMS', value: '84' }],
   },
   {
     id: 'chain-intelligence', name: 'Chain Intelligence', strapline: 'Making public ledgers legible.',
     description: 'Tools for tracing, contextualising, and publishing verifiable activity across public networks.',
-    status: 'IN DEVELOPMENT', kind: 'PUBLIC INFRASTRUCTURE', featured: false,
+    status: 'IN DEVELOPMENT', kind: 'PUBLIC INFRASTRUCTURE', externalUrl: 'https://crypto.cryptgregresearch.org/', featured: false,
     metrics: [{ label: 'NETWORKS', value: '03' }, { label: 'INDEXED EVENTS', value: '2.4M' }],
   },
   {
     id: 'ledger', name: 'Ledger', strapline: 'A durable record of what happened.',
     description: 'The evidence layer connecting observations, datasets, and the claims made in research publications.',
-    status: 'CONCEPT', kind: 'EVIDENCE SYSTEM', featured: false, metrics: [],
+    status: 'CONCEPT', kind: 'EVIDENCE SYSTEM', externalUrl: 'https://expensetracker.cryptgregresearch.org/', featured: false, metrics: [],
   },
   {
     id: 'beacon-relay', name: 'Beacon Relay', strapline: 'Signals between experiments and people.',
     description: 'A read-only discovery surface for agents and humans looking for current experiments and public evidence.',
-    status: 'IN DEVELOPMENT', kind: 'DISCOVERY', featured: false, metrics: [],
+    status: 'IN DEVELOPMENT', kind: 'DISCOVERY', externalUrl: 'https://beacon-relay-gregy.onrender.com/', featured: false, metrics: [],
   },
 ];
 ProjectSchema.array().parse(projects);
