@@ -3,6 +3,16 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = 'https://vlnocfdiexkqcnfbjhqt.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_ys0Cl98LLqAdNEiNY1f7Mg_lddIzr6F';
+const ROOT_DOMAIN = 'cryptgregresearch.org';
+
+function sharedCookieDomain() {
+  const hostname = location.hostname;
+
+  return hostname === ROOT_DOMAIN || hostname.endsWith(`.${ROOT_DOMAIN}`)
+    ? `; Domain=${ROOT_DOMAIN}`
+    : '';
+}
+
 const sharedCookieStorage = {
   getItem(key) {
     const cookie = document.cookie.split('; ').find((item) => item.startsWith(`${key}=`));
@@ -12,11 +22,15 @@ const sharedCookieStorage = {
     return legacy;
   },
   setItem(key, value) {
-    document.cookie = `${key}=${encodeURIComponent(value)}; Max-Age=31536000; Path=/; Domain=.cryptgregresearch.org; Secure; SameSite=Lax`;
+    const domain = sharedCookieDomain();
+    document.cookie = `${key}=; Max-Age=0; Path=/; Secure; SameSite=Lax`;
+    document.cookie = `${key}=${encodeURIComponent(value)}; Max-Age=31536000; Path=/${domain}; Secure; SameSite=Lax`;
     window.localStorage.setItem(key, value);
   },
   removeItem(key) {
-    document.cookie = `${key}=; Max-Age=0; Path=/; Domain=.cryptgregresearch.org; Secure; SameSite=Lax`;
+    const domain = sharedCookieDomain();
+    document.cookie = `${key}=; Max-Age=0; Path=/; Secure; SameSite=Lax`;
+    document.cookie = `${key}=; Max-Age=0; Path=/${domain}; Secure; SameSite=Lax`;
     window.localStorage.removeItem(key);
   },
 };
