@@ -1,5 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
+const DEFAULT_SUPABASE_URL = 'https://vlnocfdiexkqcnfbjhqt.supabase.co';
+const DEFAULT_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_ys0Cl98LLqAdNEiNY1f7Mg_lddIzr6F';
+
 const sharedCookieStorage = {
   getItem(key: string) {
     const cookie = document.cookie.split('; ').find((item) => item.startsWith(`${key}=`));
@@ -21,8 +24,8 @@ const sharedCookieStorage = {
 };
 
 export function getSupabaseClient() {
-  const url = import.meta.env.PUBLIC_SUPABASE_URL;
-  const key = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  const url = import.meta.env.PUBLIC_SUPABASE_URL || DEFAULT_SUPABASE_URL;
+  const key = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || DEFAULT_SUPABASE_PUBLISHABLE_KEY;
   if (!url || !key) return null;
   return createClient(url, key, { auth: { storage: sharedCookieStorage } });
 }
