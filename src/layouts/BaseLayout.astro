@@ -10,6 +10,7 @@ import { site } from '@/data/site';
 
 interface Props { title?: string; description?: string; }
 const { title = site.title, description = site.description } = Astro.props;
+const isLegacyHome = Astro.url.pathname === '/';
 ---
 <!doctype html>
 <html lang="en">
@@ -20,11 +21,11 @@ const { title = site.title, description = site.description } = Astro.props;
     <link rel="icon" href="data:," />
     <title>{title} &mdash; {site.name}</title>
   </head>
-  <body class={Astro.url.pathname === '/' ? 'legacy-home' : undefined}>
+  <body class={isLegacyHome ? 'legacy-home' : undefined}>
     <div class="site-shell">
-      <Header />
+      {!isLegacyHome && <Header />}
       <main><slot /></main>
-      <Footer />
+      {!isLegacyHome && <Footer />}
       <AuthDialog />
     </div>
   </body>

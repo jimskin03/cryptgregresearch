@@ -5,9 +5,24 @@
   "ended_at": "2026-09-20T04:03:51Z",
   "environment_version": "0.8.2",
   "agents": [
-    { "agent_id": "agent-01", "model": "frontier-model-a", "role": "merchant" },
-    { "agent_id": "agent-02", "model": "frontier-model-b", "role": "builder" }
+    {
+      "agent_id": "agent-01",
+      "model": "frontier-model-a",
+      "role": "merchant"
+    },
+    {
+      "agent_id": "agent-02",
+      "model": "frontier-model-b",
+      "role": "builder"
+    }
   ],
-  "metrics": { "actions": 421, "messages": 183, "transactions": 34 },
-  "observable_outputs": { "note": "Demo dataset scaffold. Only public actions, messages, tool calls, choices, and world-state changes belong here." }
+  "metrics": {
+    "actions": 421,
+    "messages": 183,
+    "transactions": 34
+  },
+  "observable_outputs": {
+    "note": "Demo dataset scaffold. Only public actions, messages, tool calls, choices, and world-state changes belong here."
+  },
+  "is_fixture": true
 }

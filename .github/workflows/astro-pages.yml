@@ -26,6 +26,10 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
+      - name: Typecheck Astro
+        run: npm run check
+      - name: Validate data
+        run: npm run validate
       - name: Build Astro site
         run: npm run build
       - name: Upload Pages artifact

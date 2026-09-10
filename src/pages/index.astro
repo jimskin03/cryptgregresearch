@@ -1,20 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import legacyDocument from '../../index.html?raw';
-
-const legacyStyle = legacyDocument.match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? '';
-let legacyBody = legacyDocument.match(/<body>([\s\S]*?)<\/body>/)?.[1] ?? '';
-legacyBody = legacyBody
-  .replace(/<dialog id="auth-dialog"[\s\S]*?<\/dialog>/, '')
-  .replace(/<script type="module" src="\.\/auth\.js"><\/script>/, '')
-  .replace('id="auth-open" type="button"', 'id="auth-open" data-auth-open type="button"');
+import LegacyHome from '@/components/LegacyHome.astro';
 ---
 <BaseLayout title="Research you can audit." description="Independent research and on-chain evidence.">
-  <style is:global set:html={legacyStyle}></style>
-  <style is:global>
-    body.legacy-home .site-header,
-    body.legacy-home .site-shell > footer { display: none; }
-    body.legacy-home main { overflow: visible; }
-  </style>
-  <div set:html={legacyBody}></div>
+  <LegacyHome />
 </BaseLayout>
