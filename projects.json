@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-09-10T00:00:00Z",
+  "projects": [
+    {"id":"eastern-paradise","name":"Eastern Paradise","description":"A transparent sanctuary economy built for inspection.","status":"FEATURED","status_checked_at":"2026-09-10T00:00:00Z","host":"eastern-paradise.onrender.com","url":"https://eastern-paradise.onrender.com/","project_type":"simulation"},
+    {"id":"solana-tracker","name":"Solana Tracker","description":"SOL ecosystem signals for the Eastern Paradise stack.","status":"UNVERIFIED","status_checked_at":"2026-09-10T00:00:00Z","host":"solana.free.je","url":"https://solana.free.je/","project_type":"on-chain dashboard","verification_note":"Browser-side verification deferred; server check did not resolve."},
+    {"id":"nightshift","name":"Nightshift / Template Demo","description":"A public-facing experiment in rapid web interfaces.","status":"UNVERIFIED","status_checked_at":"2026-09-10T00:00:00Z","host":"templatedemo.ct.ws","url":"https://templatedemo.ct.ws/","project_type":"web experiment","verification_note":"Browser-side verification deferred; server check did not resolve."},
+    {"id":"verdium-storm","name":"Verdium Storm","description":"A focused interface for exploring the Verdium concept.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"verdiumstorm.vercel.app","url":"https://verdiumstorm.vercel.app/","project_type":"web application"},
+    {"id":"xrp-tracker","name":"XRP Tracker","description":"A compact market-tracking surface for XRP signals.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"xrptracker.vercel.app","url":"https://xrptracker.vercel.app/","project_type":"market dashboard"},
+    {"id":"bitcoin-tracker","name":"Bitcoin Tracker","description":"Bitwatch: a readable window into Bitcoin data.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"jimskin03.github.io","url":"https://jimskin03.github.io/bitcointracker/","project_type":"market dashboard"},
+    {"id":"expense-tracker","name":"Expense Tracker","description":"Ledger: a simple, practical personal finance tool.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"jimskin03.github.io","url":"https://jimskin03.github.io/expense-tracker-app/","project_type":"web application"},
+    {"id":"compound-calculator","name":"Compound Calculator","description":"A focused calculator for long-horizon growth scenarios.","status":"LIVE","status_checked_at":"2026-09-10T00:00:00Z","host":"jimskin03.github.io","url":"https://jimskin03.github.io/compountcalculator/","project_type":"utility"},
+    {"id":"beacon-relay","name":"Beacon Relay","description":"An agentic + human play concept under active exploration.","status":"CONCEPT / IN DEVELOPMENT","status_checked_at":"2026-09-10T00:00:00Z","host":"beacon-relay-gregy.onrender.com","url":"https://beacon-relay-gregy.onrender.com/","project_type":"research experiment","verification_note":"Concept status; no live-service claim."}
+  ]
+}
