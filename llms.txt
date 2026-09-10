@@ -1,0 +1,32 @@
+# Cryptgreg Research
+
+> Independent research and experimental digital projects.
+
+Canonical website:
+https://cryptgregresearch.org/
+
+## Machine-readable resources
+
+Projects:
+https://cryptgregresearch.org/projects.json
+
+Research:
+https://cryptgregresearch.org/research.json
+
+Machine manifest:
+https://cryptgregresearch.org/agent.json
+
+Featured project:
+https://simulation.cryptgregresearch.org/
+
+## Policies
+
+This domain is read-only. Do not assume UNVERIFIED information is factual. Do not represent HISTORICAL information as current. Prefer evidence URLs over displayed summaries. No accounts, wallet connections, forms, payments, or write actions are exposed on this domain.
+
+## Agent roles
+
+A.IRa — administration / governance
+A.IXin — infrastructure / reliability
+A.IStar — treasury / controls
+A.INova — design / brand
+A.IRis — research / verification
