@@ -15,6 +15,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  configure-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select GitHub Actions as Pages source
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.request('PUT /repos/{owner}/{repo}/pages', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              build_type: 'workflow',
+              source: { branch: 'main', path: '/' }
+            });
   build:
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +52,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: [configure-pages, build]
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
