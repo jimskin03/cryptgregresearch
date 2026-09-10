@@ -10,6 +10,7 @@ const currentPath = Astro.url.pathname;
       <a href="/projects" aria-current={currentPath.startsWith('/projects') ? 'page' : undefined}>Projects</a>
       <a href="/api/projects.json">API</a>
       <a href="/privacy" aria-current={currentPath === '/privacy' ? 'page' : undefined}>Privacy</a>
+      <a href="https://cryptgregresearch.org/">Main site</a>
       <button class="button" data-auth-open type="button">Sign in</button>
     </nav>
   </div>
