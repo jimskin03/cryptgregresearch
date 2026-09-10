@@ -1,0 +1,11 @@
+---
+import type { Project } from '@/lib/validation';
+import StatusBadge from './StatusBadge.astro';
+interface Props { project: Project; }
+const { project } = Astro.props;
+---
+<article class="card">
+  <div class="card-top"><div><div class="eyebrow">{project.kind}</div><h3><a href={`/projects/${project.id}`}>{project.name}</a></h3></div><StatusBadge status={project.status} /></div>
+  <p class="card-copy">{project.strapline}<br />{project.description}</p>
+  {project.metrics.length > 0 && <div class="metrics">{project.metrics.map((metric) => <div><span class="metric-label">{metric.label}</span><span class="metric-value">{metric.value}</span></div>)}</div>}
+</article>

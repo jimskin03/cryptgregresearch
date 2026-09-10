@@ -1,0 +1,6 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { projects } from '@/data/records';
+---
+<BaseLayout title="Projects"><section class="page-intro"><div class="container"><div class="eyebrow">BUILT SYSTEMS / INDEX</div><h1>Projects</h1><p>Systems that generate observations, experiments, and public evidence.</p></div></section><section class="section"><div class="container"><div class="grid grid-2">{projects.map((project) => <ProjectCard project={project} />)}</div></div></section></BaseLayout>

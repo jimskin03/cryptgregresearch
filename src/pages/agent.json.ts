@@ -1,0 +1,3 @@
+import type { APIRoute } from 'astro';
+import { site } from '@/data/site';
+export const GET: APIRoute = () => new Response(JSON.stringify({ name: site.name, type: 'research_hub', version: '2.0', read_only: true, resources: { projects: '/api/projects.json', research: '/api/research.json', datasets: '/api/datasets.json', runs: '/api/runs.json', evidence: '/api/evidence.json', treasury: '/api/treasury.json', land: '/api/land.json', receipts: '/api/receipts.json' }, interfaces: { human: '/', simulation: site.simulationUrl } }, null, 2), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });

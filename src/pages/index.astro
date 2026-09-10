@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import ResearchCard from '@/components/ResearchCard.astro';
+import EvidenceCard from '@/components/EvidenceCard.astro';
+import TreasuryPanel from '@/components/TreasuryPanel.astro';
+import LandRegistry from '@/components/LandRegistry.astro';
+import AgentCard from '@/components/AgentCard.astro';
+import { projects, evidence, datasets, runs } from '@/data/records';
+import { getCollection } from 'astro:content';
+const research = (await getCollection('research')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const featuredProjects = projects.filter((project) => project.featured);
+---
+<BaseLayout>
+  <Hero />
+  <section class="section"><div class="container"><SectionHeader eyebrow="01 / PUBLICATIONS" title="Featured research" href="/research" />{research.length > 0 ? <div class="grid grid-3">{research.map((entry) => <ResearchCard entry={entry} />)}</div> : <div class="card"><p class="muted">Publications are being prepared. The data layer is online and ready.</p></div>}</div></section>
+  <section class="section"><div class="container"><SectionHeader eyebrow="02 / BUILT SYSTEMS" title="Projects" href="/projects" /><div class="grid grid-2">{featuredProjects.map((project) => <ProjectCard project={project} />)}</div></div></section>
+  <section class="section"><div class="container"><SectionHeader eyebrow="03 / OBSERVABLE OUTPUTS" title="Latest experiments" href="/api/runs.json" /><div class="split"><div class="card"><div class="eyebrow">LATEST PUBLIC RUN</div><h3 style="margin-top:.6rem">{runs[0].run_id}</h3><p class="card-copy">Environment {runs[0].environment_version} / {runs[0].agents.length} public agents / {runs[0].metrics.actions} actions / {runs[0].metrics.transactions} transactions.</p><a class="section-link" href={datasets[0].path}>VIEW DATASET →</a></div><AgentCard /></div></div></section>
+  <section class="section"><div class="container"><SectionHeader eyebrow="04 / EVIDENCE" title="What happened, recorded." href="/api/evidence.json" /><div class="card">{evidence.map((item) => <EvidenceCard item={item} />)}</div></div></section>
+  <section class="section"><div class="container"><SectionHeader eyebrow="05 / PUBLIC RECORDS" title="Research infrastructure" /><div class="grid grid-2"><TreasuryPanel /><LandRegistry /></div></div></section>
+</BaseLayout>

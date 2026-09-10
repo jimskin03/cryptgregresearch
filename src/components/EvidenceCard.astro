@@ -1,0 +1,7 @@
+---
+import type { Evidence } from '@/lib/validation';
+import { statusClass } from '@/lib/validation';
+interface Props { item: Evidence; }
+const { item } = Astro.props;
+---
+<div class="evidence-row"><a href={item.sources[0]}>{item.id}</a><span class="muted">{item.type}</span><span class={`status ${statusClass(item.status)}`}>{item.status}</span></div>

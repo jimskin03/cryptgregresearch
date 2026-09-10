@@ -1,0 +1,14 @@
+---
+import { getCollection, render } from 'astro:content';
+import ResearchLayout from '@/layouts/ResearchLayout.astro';
+import { projects } from '@/data/records';
+import { statusClass } from '@/lib/validation';
+export async function getStaticPaths() {
+  const entries = await getCollection('research');
+  return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const project = projects.find((item) => item.id === entry.data.project);
+---
+<ResearchLayout title={entry.data.title} description={entry.data.summary}><div class="eyebrow">RESEARCH / {entry.data.project}</div><h1 style="font-size:clamp(2.7rem,7vw,6rem);max-width:900px;margin-top:.8rem">{entry.data.title}</h1><div class="research-meta" style="margin-top:1.25rem"><span>{entry.data.date.toLocaleDateString('en-US', { dateStyle: 'long' })}</span><span class={`status ${statusClass(entry.data.status)}`}>{entry.data.status}</span>{project && <a href={`/projects/${project.id}`}>{project.name} ↗</a>}</div><p class="hero-copy">{entry.data.summary}</p><div class="metrics" style="max-width:760px;margin:2rem 0">{entry.data.stats.map((stat) => <div><span class="metric-label">{stat.label}</span><span class="metric-value">{stat.value}</span></div>)}</div><div class="research-body"><Content /></div></ResearchLayout>

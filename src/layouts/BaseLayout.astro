@@ -1,0 +1,31 @@
+---
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import AuthDialog from '@/components/AuthDialog.astro';
+import '@/styles/tokens.css';
+import '@/styles/global.css';
+import '@/styles/layout.css';
+import '@/styles/components.css';
+import { site } from '@/data/site';
+
+interface Props { title?: string; description?: string; }
+const { title = site.title, description = site.description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="data:," />
+    <title>{title} — {site.name}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <Header />
+      <main><slot /></main>
+      <Footer />
+      <AuthDialog />
+    </div>
+  </body>
+</html>

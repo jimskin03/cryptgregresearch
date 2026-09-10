@@ -1,0 +1,16 @@
+:root {
+  --bg: #060a0c;
+  --panel: #0b1216;
+  --card: #0e151a;
+  --ink: #d6dee2;
+  --muted: #7f9198;
+  --display: #f2f6f8;
+  --cyan: #38e1d6;
+  --pink: #e14ca8;
+  --gold: #e8b44a;
+  --green: #52c77e;
+  --red: #f06c74;
+  --line: #1b2a30;
+  --max-width: 1180px;
+  font-family: 'IBM Plex Mono', 'Cascadia Code', Consolas, monospace;
+}

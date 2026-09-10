@@ -1,0 +1,36 @@
+.card { border: 1px solid var(--line); background: linear-gradient(135deg, rgba(14,21,26,.96), rgba(11,18,22,.96)); padding: 1.35rem; }
+.card:hover { border-color: #2c4b53; }
+.card-top { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+.card h3 { font-size: 1.35rem; }
+.card h3 a:hover { color: var(--cyan); }
+.card-copy { color: var(--muted); font-size: .84rem; margin: 1rem 0 1.25rem; }
+.status { display: inline-flex; border: 1px solid currentColor; padding: .2rem .45rem; font-size: .62rem; letter-spacing: .08em; line-height: 1; white-space: nowrap; }
+.status-live, .status-verified, .status-published { color: var(--green); }
+.status-experimental, .status-preprint { color: var(--gold); }
+.status-in-development, .status-pending, .status-draft { color: var(--cyan); }
+.status-concept, .status-unverified, .status-historical { color: var(--pink); }
+.status-archived, .status-offline, .status-retracted { color: var(--muted); }
+.metrics { display: flex; flex-wrap: wrap; gap: 1.1rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.metric-label { display: block; color: var(--muted); font-size: .6rem; letter-spacing: .08em; }
+.metric-value { color: var(--display); font-size: .95rem; }
+.research-meta { display: flex; flex-wrap: wrap; gap: .7rem; color: var(--muted); font-size: .7rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tag { color: var(--cyan); font-size: .68rem; }
+.evidence-row { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .8rem 0; border-bottom: 1px solid var(--line); font-size: .78rem; }
+.evidence-row:last-child { border-bottom: 0; }
+.data-panel { padding: 1.5rem; border: 1px solid var(--line); background: var(--panel); }
+.data-panel h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+.data-line { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--line); font-size: .78rem; }
+.data-line:last-child { border-bottom: 0; }
+.research-body { max-width: 760px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.research-body h2 { margin: 3rem 0 1rem; font-size: 2rem; }
+.research-body h3 { margin: 2rem 0 .75rem; font-size: 1.35rem; }
+.research-body p, .research-body li { color: #b9c6ca; }
+.research-body a { color: var(--cyan); text-decoration: underline; text-underline-offset: .18em; }
+.research-body code, .research-body pre { font-family: 'IBM Plex Mono', monospace; }
+.research-body blockquote { margin: 2rem 0; padding-left: 1rem; border-left: 2px solid var(--pink); color: var(--display); }
+.auth-dialog { border: 1px solid var(--line); padding: 1.5rem; color: var(--ink); background: var(--panel); max-width: 420px; width: calc(100% - 2rem); }
+.auth-dialog::backdrop { background: rgba(0,0,0,.72); }
+.auth-dialog form { display: grid; gap: .75rem; }
+.auth-dialog input { border: 1px solid var(--line); padding: .7rem; color: var(--display); background: var(--bg); }
+.auth-message { min-height: 1.4rem; color: var(--muted); font-size: .75rem; }

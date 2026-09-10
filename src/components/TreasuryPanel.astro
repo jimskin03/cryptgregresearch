@@ -1,0 +1,4 @@
+---
+import { treasury } from '@/data/records';
+---
+<div class="data-panel"><div class="eyebrow">READ-ONLY TREASURY</div><h3>Public funds record</h3><div class="data-line"><span>NETWORK</span><strong>{treasury.network}</strong></div><div class="data-line"><span>ADDRESS</span><strong>{treasury.address}</strong></div><div class="data-line"><span>STATE</span><strong>{treasury.balance}</strong></div><p class="muted" style="font-size:.7rem;margin:.8rem 0 0">As of {new Date(treasury.as_of).toLocaleDateString('en-US')}</p></div>

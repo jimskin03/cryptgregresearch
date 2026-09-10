@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import ResearchCard from '@/components/ResearchCard.astro';
+import EvidenceCard from '@/components/EvidenceCard.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import { getCollection } from 'astro:content';
+import { projects, evidence, datasets, runs } from '@/data/records';
+import { statusClass } from '@/lib/validation';
+export function getStaticPaths() { return projects.map((project) => ({ params: { slug: project.id }, props: { project } })); }
+const { project } = Astro.props;
+const research = (await getCollection('research')).filter((entry) => entry.data.project === project.id);
+const projectEvidence = evidence.filter((item) => item.project === project.id);
+const projectDataset = datasets.find((item) => item.project === project.id);
+const projectRun = runs.find((item) => item.project === project.id);
+---
+<BaseLayout title={project.name} description={project.description}><section class="page-intro"><div class="container"><div class="eyebrow">PROJECT / {project.kind}</div><div style="display:flex;justify-content:space-between;gap:1rem;align-items:start;flex-wrap:wrap"><h1>{project.name}</h1><span class={`status ${statusClass(project.status)}`}>{project.status}</span></div><p>{project.description}</p><div class="hero-actions">{project.externalUrl && <a class="button button-primary" href={project.externalUrl}>OPEN DEPLOYMENT ↗</a>}<a class="button" href="/api/projects.json">MACHINE-READABLE RECORD</a></div></div></section><section class="section"><div class="container"><div class="grid grid-2"><ProjectCard project={project} /><div class="data-panel"><div class="eyebrow">PROJECT SURFACE</div><h3>What this project exposes</h3><div class="data-line"><span>SIMULATION</span><strong>{projectRun ? 'ACTIVE' : 'NOT PUBLISHED'}</strong></div><div class="data-line"><span>DATASETS</span><strong>{projectDataset ? 'AVAILABLE' : 'NONE'}</strong></div><div class="data-line"><span>EVIDENCE</span><strong>{projectEvidence.length} ITEMS</strong></div></div></div></div></section><section class="section"><div class="container"><SectionHeader eyebrow="RELATED PUBLICATIONS" title="Research" />{research.length ? <div class="grid grid-2">{research.map((entry) => <ResearchCard entry={entry} />)}</div> : <div class="card"><p class="muted">No publications are linked to this project yet.</p></div>}</div></section><section class="section"><div class="container"><SectionHeader eyebrow="EVIDENCE TRAIL" title="Recorded outputs" />{projectEvidence.length ? <div class="card">{projectEvidence.map((item) => <EvidenceCard item={item} />)}</div> : <div class="card"><p class="muted">Evidence will appear here as the project produces public observations.</p></div>}</div></section></BaseLayout>

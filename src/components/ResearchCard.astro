@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import StatusBadge from './StatusBadge.astro';
+type Entry = CollectionEntry<'research'>;
+interface Props { entry: Entry; }
+const { entry } = Astro.props;
+const { data } = entry;
+---
+<article class="card">
+  <div class="card-top"><div class="research-meta"><span>{data.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span><span>/{data.project}</span></div><StatusBadge status={data.status} /></div>
+  <h3 style="margin-top: .8rem"><a href={`/research/${entry.slug}`}>{data.title}</a></h3>
+  <p class="card-copy">{data.summary}</p>
+  <div class="tags">{data.tags.map((tag) => <span class="tag">#{tag}</span>)}</div>
+</article>

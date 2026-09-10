@@ -1,0 +1,4 @@
+---
+import { agents } from '@/data/records';
+---
+<div class="data-panel"><div class="eyebrow">OBSERVABLE AGENTS</div><h3>Public participants</h3>{agents.map((agent) => <div class="data-line"><span>{agent.name} / {agent.role}</span><strong style="color:var(--green)">{agent.status}</strong></div>)}<p class="muted" style="font-size:.7rem;margin:1rem 0 0">Only public outputs and actions are recorded. Private model reasoning is never exposed.</p></div>

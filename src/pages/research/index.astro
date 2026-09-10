@@ -1,0 +1,7 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ResearchCard from '@/components/ResearchCard.astro';
+import { getCollection } from 'astro:content';
+const entries = (await getCollection('research')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title="Research"><section class="page-intro"><div class="container"><div class="eyebrow">PUBLICATIONS / INDEX</div><h1>Research</h1><p>Investigations, experiments, and analyses published with their project context and dataset references intact.</p></div></section><section class="section"><div class="container"><div class="grid grid-2">{entries.map((entry) => <ResearchCard entry={entry} />)}</div></div></section></BaseLayout>
