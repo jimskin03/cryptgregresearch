@@ -18,9 +18,9 @@ const { title = site.title, description = site.description } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <link rel="icon" href="data:," />
-    <title>{title} — {site.name}</title>
+    <title>{title} &mdash; {site.name}</title>
   </head>
-  <body>
+  <body class={Astro.url.pathname === '/' ? 'legacy-home' : undefined}>
     <div class="site-shell">
       <Header />
       <main><slot /></main>
