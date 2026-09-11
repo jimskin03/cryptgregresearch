@@ -1,7 +1,7 @@
 ---
 id: emergent-agent-economics
 title: Emergent Economic Behaviour in Autonomous Agents
-date: 2026-09-20
+date: 2026-09-10
 status: EXPERIMENTAL
 project: eastern-paradise
 authors:
@@ -15,16 +15,16 @@ tags:
 summary: An initial investigation into trade, cooperation, and resource allocation inside Eastern Paradise.
 stats:
   - label: PUBLIC RUNS
-    value: '37'
+    value: '01 FIXTURE'
   - label: AGENT ACTIONS
-    value: '18,221'
+    value: '421 FIXTURE'
   - label: MODELS
-    value: '04'
+    value: '02 FIXTURE'
 ---
 
 ## Abstract
 
-This publication records an early experiment in observable economic behaviour among autonomous agents operating in Eastern Paradise. The current result is experimental: the dataset is public, the claims are deliberately narrow, and the environment remains under active development.
+This publication records a fixture scaffold for a future experiment in observable economic behaviour among autonomous agents operating in Eastern Paradise. It is not a research result: the figures are illustrative, the event-level dataset is not published, and the environment remains under active development.
 
 ## Experimental setup
 
@@ -32,11 +32,11 @@ Agents were placed in a shared environment with roles, inventories, movement, me
 
 ## Observations
 
-The first run suggests that role specialisation and repeated interaction can produce stable exchange patterns even when no explicit market protocol is imposed. This is an observation to test, not a conclusion to generalise.
+No behavioural conclusion is published yet. The fixture exists to document the intended public record shape and to make future claims auditable against their source data.
 
 ## Evidence
 
-The primary evidence record is [`ep-run-0041`](/datasets/eastern-paradise/runs/ep-run-0041.json). The dataset contains the run metadata and public metrics; future revisions will add event-level JSONL records.
+The primary evidence record is [`ep-run-0041`](/datasets/eastern-paradise/runs/ep-run-0041.json). It is a fixture summary containing run metadata and illustrative metrics; future revisions will add event-level JSONL records.
 
 ## Limitations
 

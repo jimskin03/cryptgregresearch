@@ -9,13 +9,13 @@ export const ProjectSchema = z.object({
   description: z.string().min(1), status: ProjectStatusSchema, kind: z.string().min(1),
   repository: z.string().url().optional(), deployment: z.string().url().optional(),
   externalUrl: z.string().url().optional(), statusCheckedAt: z.string().datetime().optional(),
-  verificationNote: z.string().optional(), isFixture: z.boolean().default(false),
+  verificationStatus: EvidenceStatusSchema.default('PENDING'), verificationNote: z.string().optional(), isFixture: z.boolean().default(false),
   featured: z.boolean().default(false), metrics: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
 });
 export const DatasetSchema = z.object({
   id: z.string().min(1), title: z.string().min(1), project: z.string(), description: z.string().min(1),
   records: z.number().int().nonnegative(), format: z.string(), path: z.string().startsWith('/'),
-  status: z.enum(['VERIFIED', 'EXPERIMENTAL', 'PENDING']), isFixture: z.boolean().default(false),
+  status: z.enum(['VERIFIED', 'EXPERIMENTAL', 'PENDING']), isFixture: z.boolean().default(false), note: z.string().optional(),
 });
 export const ExperimentRunSchema = z.object({
   run_id: z.string().min(1), project: z.string(), started_at: z.string().datetime(),
@@ -32,9 +32,10 @@ export const EvidenceSchema = z.object({
 export const TreasurySchema = z.object({
   network: z.string(), address: z.string(), balance: z.string(),
   assets: z.array(z.object({ symbol: z.string(), amount: z.string(), usd: z.string() })), as_of: z.string().datetime(),
+  verificationStatus: EvidenceStatusSchema.default('PENDING'), isFixture: z.boolean().default(false), note: z.string().optional(),
 });
-export const LandSchema = z.object({ project: z.string(), total: z.number().int().nonnegative(), registered: z.number().int().nonnegative(), available: z.number().int().nonnegative(), status: z.string() });
-export const ReceiptSchema = z.object({ id: z.string(), type: z.string(), description: z.string(), amount: z.string(), date: z.string(), status: EvidenceStatusSchema });
+export const LandSchema = z.object({ project: z.string(), total: z.number().int().nonnegative(), registered: z.number().int().nonnegative(), available: z.number().int().nonnegative(), status: z.string(), verificationStatus: EvidenceStatusSchema.default('PENDING'), isFixture: z.boolean().default(false), note: z.string().optional() });
+export const ReceiptSchema = z.object({ id: z.string(), type: z.string(), description: z.string(), amount: z.string(), date: z.string(), status: EvidenceStatusSchema, source: z.string().url().optional(), isFixture: z.boolean().default(false) });
 
 export type Project = z.infer<typeof ProjectSchema>;
 export type Dataset = z.infer<typeof DatasetSchema>;
