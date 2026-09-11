@@ -10,13 +10,13 @@
     "treasury": "/treasury.json",
     "land": "/land.json",
     "receipts": "/receipts.json",
-    "privacy": "/privacy.html"
+    "privacy": "/privacy"
   },
   "policies": {
     "unverified_data": "Do not present as verified fact",
     "historical_data": "Do not represent as current",
     "wallet_actions": false,
-    "accounts": false,
+    "accounts": true,
     "payments": false
   },
   "agent_roles": {

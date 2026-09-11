@@ -23,6 +23,7 @@ export const GET: APIRoute = () => apiJson({
       land: '/api/land.json',
       receipts: '/api/receipts.json',
       agents: '/api/agents.json',
+      privacy: '/privacy',
     },
     interfaces: { human: '/', simulation: site.simulationUrl },
     interpretation: {
