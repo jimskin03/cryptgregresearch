@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-09-10T00:00:00Z",
+  "last_updated": "2026-09-11T00:00:00Z",
   "projects": [
     {
       "id": "eastern-paradise",
@@ -52,13 +52,13 @@
     },
     {
       "id": "expense-tracker",
-      "name": "Expense Tracker + Compound Calculator",
-      "description": "Ledger: a practical personal finance tool with an integrated compound-growth calculator.",
+      "name": "CryptGreg Finance",
+      "description": "One private finance workspace for Ledger, compound growth, and ISIN-based Portfolio tracking.",
       "status": "LIVE",
       "status_checked_at": "2026-09-10T00:00:00Z",
       "host": "expensetracker.cryptgregresearch.org",
       "url": "https://expensetracker.cryptgregresearch.org/",
-      "project_type": "web application + utility",
+      "project_type": "finance workspace",
       "verification_note": null,
       "is_fixture": false
     },
