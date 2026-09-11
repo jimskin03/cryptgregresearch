@@ -1,3 +1,10 @@
 import type { APIRoute } from 'astro';
-import { receipts } from '@/data/records';
-export const GET: APIRoute = () => new Response(JSON.stringify({ receipts }, null, 2), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
+import { projectRegistryLastUpdated, receipts } from '@/data/records';
+import { apiJson } from '@/lib/api';
+export const GET: APIRoute = () => apiJson({
+  resource: 'receipts',
+  lastUpdated: projectRegistryLastUpdated,
+  data: {
+    receipts: receipts.map(({ isFixture, ...receipt }) => ({ ...receipt, is_fixture: isFixture })),
+  },
+});

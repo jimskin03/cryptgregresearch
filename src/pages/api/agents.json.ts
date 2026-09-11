@@ -1,3 +1,4 @@
 import type { APIRoute } from 'astro';
-import { agents } from '@/data/records';
-export const GET: APIRoute = () => new Response(JSON.stringify({ agents }, null, 2), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
+import { agents, projectRegistryLastUpdated } from '@/data/records';
+import { apiJson } from '@/lib/api';
+export const GET: APIRoute = () => apiJson({ resource: 'agents', lastUpdated: projectRegistryLastUpdated, data: { agents } });
