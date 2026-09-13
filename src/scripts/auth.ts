@@ -9,13 +9,12 @@ export function initAuth() {
   const passwordInput = document.querySelector<HTMLInputElement>('#auth-password');
   const magic = document.querySelector<HTMLButtonElement>('[data-auth-magic]');
   const signup = document.querySelector<HTMLButtonElement>('[data-auth-signup]');
-  const switchMode = document.querySelector<HTMLButtonElement>('[data-auth-switch]');
   const submit = document.querySelector<HTMLButtonElement>('[data-auth-submit]');
   const title = document.querySelector<HTMLElement>('#auth-title');
   const message = document.querySelector<HTMLElement>('[data-auth-message]');
   const authArea = document.querySelector<HTMLElement>('#auth-area');
   const supabase = getSupabaseClient();
-  if (!dialog || !opener || !form || !emailInput || !passwordInput || !magic || !signup || !switchMode || !submit || !supabase) return;
+  if (!dialog || !opener || !form || !emailInput || !passwordInput || !magic || !signup || !submit || !supabase) return;
 
   let mode: 'signin' | 'signup' = 'signin';
   const setMode = (nextMode: 'signin' | 'signup') => {
@@ -24,7 +23,6 @@ export function initAuth() {
     if (title) title.textContent = signingUp ? 'Create your research account.' : 'Save your research trail.';
     submit.textContent = signingUp ? 'CREATE ACCOUNT →' : 'SIGN IN →';
     signup.hidden = signingUp;
-    switchMode.hidden = !signingUp;
     passwordInput.autocomplete = signingUp ? 'new-password' : 'current-password';
     setMessage('');
   };
@@ -34,7 +32,6 @@ export function initAuth() {
   opener.addEventListener('click', openDialog);
   closer?.addEventListener('click', () => dialog.close());
   signup.addEventListener('click', () => setMode('signup'));
-  switchMode.addEventListener('click', () => setMode('signin'));
 
   const renderSession = (session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) => {
     if (!authArea) return;
