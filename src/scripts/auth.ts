@@ -23,6 +23,7 @@ export function initAuth() {
     if (title) title.textContent = signingUp ? 'Create your research account.' : 'Save your research trail.';
     submit.textContent = signingUp ? 'CREATE ACCOUNT →' : 'SIGN IN →';
     signup.hidden = signingUp;
+    signup.style.display = signingUp ? 'none' : '';
     passwordInput.autocomplete = signingUp ? 'new-password' : 'current-password';
     setMessage('');
   };
