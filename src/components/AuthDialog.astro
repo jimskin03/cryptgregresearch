@@ -3,7 +3,7 @@
 <dialog class="auth-dialog" data-auth-dialog aria-labelledby="auth-title">
   <button class="button" data-auth-close type="button" style="float:right">CLOSE</button>
   <div class="eyebrow">ACCOUNT ACCESS</div><h2 id="auth-title" style="margin: .7rem 0 1.2rem">Save your research trail.</h2>
-  <form data-auth-form><label for="auth-email">Email</label><input id="auth-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" /><label for="auth-password">Password</label><input id="auth-password" name="password" type="password" autocomplete="current-password" placeholder="Your password" /><button class="button button-primary" type="submit">SIGN IN →</button><button class="button" data-auth-magic type="button">SEND MAGIC LINK →</button><p class="auth-message" data-auth-message></p></form>
+  <form data-auth-form><label for="auth-email">Email</label><input id="auth-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" /><label for="auth-password">Password</label><input id="auth-password" name="password" type="password" minlength="8" autocomplete="current-password" placeholder="Your password" /><button class="button button-primary" data-auth-submit type="submit">SIGN IN →</button><button class="button" data-auth-signup type="button">CREATE ACCOUNT →</button><button class="button" data-auth-magic type="button">SEND MAGIC LINK →</button><button class="button" data-auth-switch type="button" hidden>ALREADY HAVE AN ACCOUNT? SIGN IN</button><p class="auth-message" data-auth-message></p></form>
 </dialog>
 <script>
   import { initAuth } from '@/scripts/auth';

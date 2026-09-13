@@ -8,15 +8,33 @@ export function initAuth() {
   const emailInput = document.querySelector<HTMLInputElement>('#auth-email');
   const passwordInput = document.querySelector<HTMLInputElement>('#auth-password');
   const magic = document.querySelector<HTMLButtonElement>('[data-auth-magic]');
+  const signup = document.querySelector<HTMLButtonElement>('[data-auth-signup]');
+  const switchMode = document.querySelector<HTMLButtonElement>('[data-auth-switch]');
+  const submit = document.querySelector<HTMLButtonElement>('[data-auth-submit]');
+  const title = document.querySelector<HTMLElement>('#auth-title');
   const message = document.querySelector<HTMLElement>('[data-auth-message]');
   const authArea = document.querySelector<HTMLElement>('#auth-area');
   const supabase = getSupabaseClient();
-  if (!dialog || !opener || !form || !emailInput || !passwordInput || !magic || !supabase) return;
+  if (!dialog || !opener || !form || !emailInput || !passwordInput || !magic || !signup || !switchMode || !submit || !supabase) return;
+
+  let mode: 'signin' | 'signup' = 'signin';
+  const setMode = (nextMode: 'signin' | 'signup') => {
+    mode = nextMode;
+    const signingUp = mode === 'signup';
+    if (title) title.textContent = signingUp ? 'Create your research account.' : 'Save your research trail.';
+    submit.textContent = signingUp ? 'CREATE ACCOUNT →' : 'SIGN IN →';
+    signup.hidden = signingUp;
+    switchMode.hidden = !signingUp;
+    passwordInput.autocomplete = signingUp ? 'new-password' : 'current-password';
+    setMessage('');
+  };
 
   const setMessage = (text: string) => { if (message) message.textContent = text; };
   const openDialog = () => dialog.showModal();
   opener.addEventListener('click', openDialog);
   closer?.addEventListener('click', () => dialog.close());
+  signup.addEventListener('click', () => setMode('signup'));
+  switchMode.addEventListener('click', () => setMode('signin'));
 
   const renderSession = (session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) => {
     if (!authArea) return;
@@ -52,11 +70,12 @@ export function initAuth() {
     setMessage('Signing in…');
     const supabase = getSupabaseClient();
     if (!supabase) { setMessage('Authentication is not configured in this deployment.'); return; }
-    const { error } = await supabase.auth.signInWithPassword({
-      email: emailInput.value.trim(), password: passwordInput.value,
-    });
+    const { error, data } = mode === 'signup'
+      ? await supabase.auth.signUp({ email: emailInput.value.trim(), password: passwordInput.value, options: { emailRedirectTo: window.location.origin } })
+      : await supabase.auth.signInWithPassword({ email: emailInput.value.trim(), password: passwordInput.value });
     if (error) { setMessage(error.message); return; }
     passwordInput.value = '';
+    if (mode === 'signup' && !data.session) { setMessage('Account created. Check your email to confirm your address, then sign in.'); return; }
     dialog.close();
   });
 
