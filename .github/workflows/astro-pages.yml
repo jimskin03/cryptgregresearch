@@ -3,6 +3,8 @@ name: Build and deploy Astro site
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -43,9 +45,13 @@ jobs:
           path: dist
 
   deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     needs: build
     steps:
