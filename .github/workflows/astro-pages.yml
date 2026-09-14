@@ -20,18 +20,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          cache: pnpm
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
       - name: Typecheck Astro
-        run: npm run check
+        run: pnpm run check
       - name: Validate data
-        run: npm run validate
+        run: pnpm run validate
       - name: Build Astro site
-        run: npm run build
+        run: pnpm run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
