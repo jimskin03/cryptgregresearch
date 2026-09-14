@@ -1,11 +1,6 @@
 ---
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
 import AuthDialog from '@/components/AuthDialog.astro';
-import '@/styles/tokens.css';
-import '@/styles/global.css';
-import '@/styles/layout.css';
-import '@/styles/components.css';
+import LegacyHome from '@/components/LegacyHome.astro';
 import { site } from '@/data/site';
 
 interface Props { title?: string; description?: string; }
@@ -20,12 +15,8 @@ const { title = site.title, description = site.description } = Astro.props;
     <link rel="icon" href="data:," />
     <title>{title} &mdash; {site.name}</title>
   </head>
-  <body>
-    <div class="site-shell">
-      <Header />
-      <main><slot /></main>
-      <Footer />
-      <AuthDialog />
-    </div>
+  <body class="legacy-home">
+    <LegacyHome />
+    <AuthDialog />
   </body>
 </html>
