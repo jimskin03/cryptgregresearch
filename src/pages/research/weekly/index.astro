@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatusBadge from '@/components/StatusBadge.astro';
 import { getCollection } from 'astro:content';
-import { publishedObservations, editionLabel, gateReport } from '@/lib/observations';
+import { publishedObservations, editionLabel, gateReport, conclusionLabel } from '@/lib/observations';
 
 const entries = await publishedObservations();
 const all = await getCollection('observations');
@@ -90,6 +90,7 @@ const contract = [
               <div class="research-meta">
                 <span>{editionLabel(entry)}</span>
                 <span>{entry.data.sources.length} sources</span>
+                <span>{conclusionLabel(entry)}</span>
                 <span>written by {entry.data.authors.join(', ')}</span>
                 <span>data review {entry.data.review.data_reviewer}</span>
                 <span>approved by {entry.data.review.editorial_approver}</span>

@@ -41,6 +41,8 @@ const observations = defineCollection({
     edition: z.string().regex(/^\d{4}-W\d{2}$/, 'edition must look like 2026-W39'),
     date: z.coerce.date(),
     status: z.enum(['DRAFT', 'IN REVIEW', 'PUBLISHED', 'RETRACTED']),
+    kind: z.enum(['OBSERVATION', 'METHODS']).default('OBSERVATION'),
+    conclusion: z.enum(['NONE', 'PRELIMINARY', 'SUPPORTED', 'INCONCLUSIVE']).default('PRELIMINARY'),
     authors: z.array(z.string()).min(1),
     scope: z.array(z.string()).default([]),
     summary: z.string().min(1),

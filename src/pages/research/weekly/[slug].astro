@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
 import ResearchLayout from '@/layouts/ResearchLayout.astro';
-import { publishedObservations, numberedSources } from '@/lib/observations';
+import { publishedObservations, numberedSources, isMethodsOnly, conclusionLabel } from '@/lib/observations';
 
 export async function getStaticPaths() {
   const entries = await publishedObservations();
@@ -12,6 +12,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const sources = numberedSources(entry);
 const review = entry.data.review;
+const methodsOnly = isMethodsOnly(entry);
 const sections = [
   { key: 'observed', title: 'Observed', tone: 'observed', items: entry.data.observed },
   { key: 'interpreted', title: 'Interpreted', tone: 'interpreted', items: entry.data.interpreted },
@@ -31,9 +32,21 @@ const roles = [
   <div class="research-meta" style="margin-top:1.25rem">
     <span>{entry.data.date.toLocaleDateString('en-US', { dateStyle: 'long' })}</span>
     <span class="status status-published">{entry.data.status}</span>
+    <span class="status status-draft">{entry.data.kind}</span>
+    <span>{conclusionLabel(entry)}</span>
     <span>window {entry.data.window.start.toISOString().slice(0, 10)} → {entry.data.window.end.toISOString().slice(0, 10)} UTC</span>
     {entry.data.scope.map((id) => <a href={`/projects/${id}`}>{id}</a>)}
   </div>
+  {methodsOnly && (
+    <div class="notice" role="note">
+      <strong>{conclusionLabel(entry)}</strong>
+      <span>
+        This edition is a dated methods-and-limitations memo. It records how the series observes, what the current public
+        evidence does and does not support, and presents no scientific finding.
+      </span>
+    </div>
+  )}
+
   <p class="hero-copy">{entry.data.summary}</p>
 
   {entry.data.stats.length > 0 && (
@@ -127,5 +140,8 @@ const roles = [
   .src-kind { color: var(--muted); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
   .src-meta { color: var(--muted); font-size: .7rem; margin-top: .3rem; word-break: break-all; }
   .src-quote { margin: .6rem 0 0; padding-left: .8rem; border-left: 2px solid var(--pink); color: var(--display); font-size: .82rem; }
+  .notice { display: grid; gap: .4rem; max-width: 860px; margin: 1.75rem 0 0; padding: 1.1rem 1.25rem; border: 1px solid var(--pink); background: var(--panel); }
+  .notice strong { color: var(--pink); letter-spacing: .06em; font-size: .78rem; }
+  .notice span { color: #b9c6ca; font-size: .84rem; }
   .disagreements ul { margin: 0; padding-left: 1.1rem; color: #b9c6ca; font-size: .82rem; }
 </style>

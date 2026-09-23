@@ -18,6 +18,9 @@ The site's `/research/weekly` series publishes one dated observational edition p
    - at least one source, each with `url`, `accessed`, and a verbatim `quote` from the fetched page
    - `review.verified_at` recorded by an independent reviewer
    - `is_fixture` not true, observation window in the past, `window.start <= window.end`
+   - `kind` and `conclusion` agree: a `METHODS` edition states `conclusion: NONE` and renders a prominent
+     "NO SCIENTIFIC CONCLUSION" notice; an `OBSERVATION` edition must state an actual conclusion
+     (`PRELIMINARY` / `SUPPORTED` / `INCONCLUSIVE`) — it may not borrow the memo's disclaimer
    A draft that fails any rule stays invisible on the site and is only counted as withheld.
 2. **No hand-typed numbers.** Every figure comes from a fetched response or a source page. Register sources at retrieval
    time with the `grounded-citations` ledger (`scripts/sources.py add`), cite inline as `[n]` in `observed` /
@@ -38,6 +41,8 @@ title: 'Week 39: what the public record showed'
 edition: 2026-W39
 date: 2026-09-28
 status: PUBLISHED
+kind: OBSERVATION   # or METHODS for a dated methods/limitations memo
+conclusion: PRELIMINARY   # NONE only for kind METHODS
 scope: [eastern-paradise, chain-intelligence]
 summary: One paragraph, factual, no claims beyond the cited record.
 window:
