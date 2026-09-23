@@ -78,3 +78,17 @@ The writer leaves `YYYY-WW.md` plus its citation ledger JSON in
 `~/.hermes/profiles/aixin/inbox/weekly-observations/`. Publishing is a separate, reviewable step: the publishing agent
 rebases onto `origin/main`, drops the edition into the collection, runs `pnpm run check`, `pnpm run validate`,
 `pnpm run build`, then commits and pushes — and only after the review gate is present. A red gate blocks the push.
+
+**Always clear the content cache before a publish build.** Astro caches the content layer in
+`node_modules/.astro/data-store.json`, so a removed or renamed edition keeps being rendered and keeps appearing in
+`/api/observations.json` until that cache is cleared — a phantom edition that looks published. Publish sequence:
+
+```sh
+rm -rf node_modules/.astro .astro dist
+node scripts/validate-data.mjs
+pnpm run build
+# verify the artifact, not the source tree:
+curl -s http://localhost:4321/api/observations.json | head -20   # or read dist/api/observations.json
+ls dist/research/weekly/                                        # expect one directory per published edition
+```
+
