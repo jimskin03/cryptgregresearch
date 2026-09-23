@@ -34,3 +34,17 @@
 .auth-dialog form { display: grid; gap: .75rem; }
 .auth-dialog input { border: 1px solid var(--line); padding: .7rem; color: var(--display); background: var(--bg); }
 .auth-message { min-height: 1.4rem; color: var(--muted); font-size: .75rem; }
+
+/* Categorical evidence-availability figure (weekly observations).
+   Rows carry equal weight by design: no proportional bars, no ranking. */
+.avail-figure { margin: 2rem 0; border: 1px solid var(--line); background: var(--panel); padding: 1.1rem 1.25rem; }
+.avail-rows { display: grid; gap: .35rem; }
+.avail-row { display: grid; grid-template-columns: minmax(0, 1.1fr) auto minmax(0, 1.5fr); gap: .75rem; align-items: center; padding: .65rem 0; border-bottom: 1px solid var(--line); }
+.avail-row:last-child { border-bottom: 0; }
+.avail-name { color: var(--display); font-size: .84rem; }
+.avail-flag { border: 1px solid currentColor; padding: .18rem .45rem; font-size: .62rem; letter-spacing: .08em; white-space: nowrap; justify-self: start; }
+.avail-unverified { color: var(--pink); }
+.avail-unavailable { color: var(--gold); }
+.avail-note { color: var(--muted); font-size: .72rem; }
+.avail-figure figcaption { margin-top: .9rem; padding-left: .7rem; border-left: 2px solid var(--cyan); color: var(--ink); font-size: .74rem; }
+@media (max-width: 640px) { .avail-row { grid-template-columns: 1fr; gap: .35rem; } }
