@@ -4,7 +4,7 @@ export const API_SCHEMA_VERSION = '1.1';
 
 type ApiEnvelopeOptions<T> = {
   resource: string;
-  lastUpdated: string;
+  lastUpdated: string | null;
   data: T;
   self?: string;
 };

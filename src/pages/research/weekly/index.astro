@@ -1,0 +1,113 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StatusBadge from '@/components/StatusBadge.astro';
+import { getCollection } from 'astro:content';
+import { publishedObservations, editionLabel, gateReport } from '@/lib/observations';
+
+const entries = await publishedObservations();
+const all = await getCollection('observations');
+const withheld = all.filter((entry) => !gateReport(entry).published).length;
+
+const contract = [
+  { label: 'CADENCE', value: 'Weekly · Mondays 09:00 Asia/Kuala_Lumpur' },
+  { label: 'SCOPE', value: 'Eastern Paradise public records + Chain Intelligence readings' },
+  { label: 'EXCLUDED', value: 'Finance and portal telemetry (not in v1)' },
+  { label: 'SOURCE GATE', value: 'Independent verification required before publication' },
+];
+---
+
+<BaseLayout
+  title="Weekly observations"
+  description="A weekly observational research series: what we observed, what we interpret, and what remains uncertain — each claim tied to a cited, dated source."
+>
+  <section class="page-intro">
+    <div class="container">
+      <div class="eyebrow">RESEARCH / WEEKLY</div>
+      <h1>Weekly observations</h1>
+      <p>
+        A dated weekly record of what our public systems actually did. Each edition is separated into
+        <strong>Observed</strong>, <strong>Interpreted</strong>, and <strong>Uncertain</strong>, with every external claim linked
+        to a source and its access date.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="data-panel">
+        <h3>Publication contract</h3>
+        <div>
+          {contract.map((row) => (
+            <div class="data-line"><span>{row.label}</span><span>{row.value}</span></div>
+          ))}
+          <div class="data-line">
+            <span>WRITER</span>
+            <span>A.IRis (research owner); @aistar verifies cited records independently</span>
+          </div>
+          <div class="data-line">
+            <span>REVIEW</span>
+            <span>Independent data review + editorial approval, recorded per edition</span>
+          </div>
+          <div class="data-line">
+            <span>PUBLICATION RULE</span>
+            <span>Fails closed — no edition is published without sourced, reviewable evidence</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">EDITIONS · {entries.length} PUBLISHED</div>
+      {entries.length === 0 ? (
+        <div class="data-panel" style="margin-top:1.25rem">
+          <h3>No editions published yet</h3>
+          <p class="card-copy" style="margin-bottom:.75rem">
+            The series opens with the first edition of a completed observation window. Nothing is listed here until an
+            edition carries cited sources, verbatim evidence, and an independent source-gate review — an unevidenced
+            draft is withheld rather than published.
+          </p>
+          <p class="card-copy" style="margin:0">
+            {withheld > 0
+              ? `${withheld} edition(s) currently held back by the source gate.`
+              : 'No editions are currently held back.'}
+          </p>
+        </div>
+      ) : (
+        <div class="grid grid-2" style="margin-top:1.25rem">
+          {entries.map((entry) => (
+            <article class="card">
+              <div class="card-top">
+                <div class="research-meta">
+                  <span>{entry.data.edition}</span>
+                  <span>/{entry.data.scope.join(' · ')}</span>
+                </div>
+                <StatusBadge status={entry.data.status} />
+              </div>
+              <h3 style="margin-top:.8rem"><a href={`/research/weekly/${entry.slug}`}>{entry.data.title}</a></h3>
+              <p class="card-copy">{entry.data.summary}</p>
+              <div class="research-meta">
+                <span>{editionLabel(entry)}</span>
+                <span>{entry.data.sources.length} sources</span>
+                <span>written by {entry.data.authors.join(', ')}</span>
+                <span>data review {entry.data.review.data_reviewer}</span>
+                <span>approved by {entry.data.review.editorial_approver}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">MACHINE-READABLE</div>
+      <p class="card-copy" style="margin-top:.75rem">
+        Editions are published as data too: <a href="/api/observations.json">/api/observations.json</a>. The public
+        record is read-only, and the same source gate governs it — withheld editions never appear there either.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

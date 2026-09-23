@@ -17,6 +17,7 @@ The homepage is implemented by `src/components/LegacyHome.astro` with the unchan
 ## Architecture
 
 - `src/content/research/` contains publication source material.
+- `src/content/observations/` holds weekly observational editions; `src/lib/observations.ts` enforces the fail-closed publication gate and `docs/weekly-observations.md` is the writer contract.
 - `src/data/records.ts` is the canonical source for projects, datasets, runs, evidence, and public records.
 - `src/components/LegacyHome.astro` owns the homepage markup; it does not fetch or replace cards after load.
 - `src/styles/legacy-home.css` preserves the legacy homepage CSS unchanged.
