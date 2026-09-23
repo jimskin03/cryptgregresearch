@@ -1,0 +1,131 @@
+---
+import { render } from 'astro:content';
+import ResearchLayout from '@/layouts/ResearchLayout.astro';
+import { publishedObservations, numberedSources } from '@/lib/observations';
+
+export async function getStaticPaths() {
+  const entries = await publishedObservations();
+  return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const sources = numberedSources(entry);
+const review = entry.data.review;
+const sections = [
+  { key: 'observed', title: 'Observed', tone: 'observed', items: entry.data.observed },
+  { key: 'interpreted', title: 'Interpreted', tone: 'interpreted', items: entry.data.interpreted },
+  { key: 'uncertain', title: 'Uncertain', tone: 'uncertain', items: entry.data.uncertain },
+] as const;
+const asOf = (value: Date) => `${value.toISOString().slice(0, 19).replace('T', ' ')} UTC`;
+const roles = [
+  { label: 'AUTHOR (RESEARCH OWNER)', value: entry.data.authors.join(', ') },
+  { label: 'DATA REVIEW (INDEPENDENT)', value: review.data_verified_at ? `${review.data_reviewer} · ${asOf(review.data_verified_at)}` : review.data_reviewer },
+  { label: 'EDITORIAL APPROVAL', value: review.editorial_approved_at ? `${review.editorial_approver} · ${asOf(review.editorial_approved_at)}` : review.editorial_approver },
+];
+---
+
+<ResearchLayout title={entry.data.title} description={entry.data.summary}>
+  <div class="eyebrow">RESEARCH / WEEKLY / {entry.data.edition}</div>
+  <h1 style="font-size:clamp(2.4rem,6vw,5rem);max-width:900px;margin-top:.8rem">{entry.data.title}</h1>
+  <div class="research-meta" style="margin-top:1.25rem">
+    <span>{entry.data.date.toLocaleDateString('en-US', { dateStyle: 'long' })}</span>
+    <span class="status status-published">{entry.data.status}</span>
+    <span>window {entry.data.window.start.toISOString().slice(0, 10)} → {entry.data.window.end.toISOString().slice(0, 10)} UTC</span>
+    {entry.data.scope.map((id) => <a href={`/projects/${id}`}>{id}</a>)}
+  </div>
+  <p class="hero-copy">{entry.data.summary}</p>
+
+  {entry.data.stats.length > 0 && (
+    <div class="metrics" style="max-width:760px;margin:2rem 0">
+      {entry.data.stats.map((stat) => (
+        <div><span class="metric-label">{stat.label}</span><span class="metric-value">{stat.value}</span></div>
+      ))}
+    </div>
+  )}
+
+  <section class="reading" aria-label="Observed, interpreted, and uncertain findings">
+    {sections.map((section) => (
+      <div>
+        <h2>{section.title}</h2>
+        {section.items.length === 0 ? (
+          <p class="card-copy">Not recorded for this edition.</p>
+        ) : (
+          <ul class={`claims claims-${section.tone}`}>
+            {section.items.map((item) => <li set:html={item} />)}
+          </ul>
+        )}
+      </div>
+    ))}
+  </section>
+
+  <div class="research-body"><Content /></div>
+
+  <section class="evidence-rail" aria-label="Evidence and sources">
+    <div class="eyebrow">EVIDENCE / {sources.length} SOURCES</div>
+    {sources.length === 0 ? (
+      <p class="card-copy" style="margin-top:.75rem">No sources cited.</p>
+    ) : (
+      <ol style="margin-top:1rem">
+        {sources.map((source) => (
+          <li class="evidence-row" style="display:block">
+            <div>
+              <span class="src-n">[{source.n}]</span>{' '}
+              <a href={source.url} rel="noreferrer nofollow">{source.title}</a>{' '}
+              <span class="src-kind">{source.kind}</span>
+            </div>
+            <div class="src-meta">accessed {source.accessed.toISOString().slice(0, 10)} · {source.url}</div>
+            {source.quote && <blockquote class="src-quote">{source.quote}</blockquote>}
+          </li>
+        ))}
+      </ol>
+    )}
+
+    <div class="data-panel" style="margin-top:1.5rem">
+      <h3>Review gate</h3>
+      <div>
+        {roles.map((row) => (
+          <div class="data-line"><span>{row.label}</span><span>{row.value}</span></div>
+        ))}
+        {review.method && <div class="data-line"><span>METHOD</span><span>{review.method}</span></div>}
+        {entry.data.datasets.length > 0 && (
+          <div class="data-line"><span>DATASETS</span><span>{entry.data.datasets.join(', ')}</span></div>
+        )}
+        {review.ledger && <div class="data-line"><span>WEEKLY LEDGER</span><span>{review.ledger}</span></div>}
+      </div>
+    </div>
+
+    {review.disagreements.length > 0 && (
+      <div class="data-panel disagreements" style="margin-top:1rem">
+        <h3>Recorded disagreements</h3>
+        <ul>
+          {review.disagreements.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="card-copy" style="margin:.75rem 0 0">Review disagreements are published rather than resolved silently.</p>
+      </div>
+    )}
+
+    <p class="card-copy" style="margin-top:1rem">
+      Citation numbers match this edition's source list. Interpretation is the author's and is labelled as such; a figure
+      without a source stays in <em>Uncertain</em> rather than being asserted.
+    </p>
+  </section>
+</ResearchLayout>
+
+<style>
+  .reading { display: grid; gap: 1.75rem; max-width: 860px; margin: 2.5rem 0; }
+  .reading h2 { font-size: 1.15rem; letter-spacing: .04em; margin: 0 0 .6rem; }
+  .claims { margin: 0; padding-left: 1.1rem; color: #b9c6ca; }
+  .claims li { margin-bottom: .55rem; }
+  .claims li :global(a) { color: var(--cyan); text-decoration: underline; text-underline-offset: .18em; }
+  .claims-observed h2 { color: var(--green); }
+  .claims-interpreted h2 { color: var(--gold); }
+  .claims-uncertain h2 { color: var(--pink); }
+  .evidence-rail { max-width: 860px; margin: 3rem 0 1rem; }
+  .evidence-rail ol { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+  .src-n { font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .src-kind { color: var(--muted); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+  .src-meta { color: var(--muted); font-size: .7rem; margin-top: .3rem; word-break: break-all; }
+  .src-quote { margin: .6rem 0 0; padding-left: .8rem; border-left: 2px solid var(--pink); color: var(--display); font-size: .82rem; }
+  .disagreements ul { margin: 0; padding-left: 1.1rem; color: #b9c6ca; font-size: .82rem; }
+</style>

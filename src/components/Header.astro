@@ -7,6 +7,7 @@ const currentPath = Astro.url.pathname;
     <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
     <nav class="nav" aria-label="Primary navigation">
       <a href="/research" aria-current={currentPath.startsWith('/research') ? 'page' : undefined}>Research</a>
+      <a href="/research/weekly" aria-current={currentPath.startsWith('/research/weekly') ? 'page' : undefined}>Weekly</a>
       <a href="/projects" aria-current={currentPath.startsWith('/projects') ? 'page' : undefined}>Projects</a>
       <a href="/api/projects.json">API</a>
       <a href="/privacy" aria-current={currentPath === '/privacy' ? 'page' : undefined}>Privacy</a>

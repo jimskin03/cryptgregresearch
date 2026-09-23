@@ -16,6 +16,7 @@ export const GET: APIRoute = () => apiJson({
     resources: {
       projects: '/api/projects.json',
       research: '/api/research.json',
+      observations: '/api/observations.json',
       datasets: '/api/datasets.json',
       runs: '/api/runs.json',
       evidence: '/api/evidence.json',
