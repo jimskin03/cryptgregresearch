@@ -72,6 +72,21 @@ is_fixture: false
 Body prose with the same `[n]` citations.
 ```
 
+## Handoff format gotcha
+
+The writer's handoff is a *draft*, not a site-ready file. Two conversions are always required, and both have bitten
+the first handoff:
+
+1. **Close the frontmatter.** A draft that opens with `---` but never closes it is not parseable as an edition; the
+   publishing step must close the block before the prose (or the `## Sources` heading becomes frontmatter text).
+2. **Move citations into `sources:`.** A markdown `## Sources` list at the end of the draft is for humans; the site
+   renders the evidence rail from the frontmatter `sources:` array (`id`, `title`, `url`, `accessed`, `kind`, `quote`),
+   numbered in array order so inline `[n]` markers line up.
+
+Also confirm each quote reproduces from the fetch a reader would make. Client-rendered pages and CDN 404 pages can
+serve different text to `curl` than to a browser (and may use typographic apostrophes), so quote the substring that
+reproduces under both, or state the fetch method in `review.method`.
+
 ## Handoff to publishing
 
 The writer leaves `YYYY-WW.md` plus its citation ledger JSON in
