@@ -15,6 +15,15 @@ export function gateReport(entry: Observation, now: Date = new Date()): GateRepo
   const { data } = entry;
 
   if (data.status !== 'PUBLISHED') reasons.push(`status is ${data.status}, not PUBLISHED`);
+
+  // A methods/limitations edition may not carry a scientific conclusion, and an
+  // observation edition may not claim to have none.
+  if (data.kind === 'METHODS' && data.conclusion !== 'NONE') {
+    reasons.push(`kind METHODS requires conclusion NONE (got ${data.conclusion})`);
+  }
+  if (data.kind === 'OBSERVATION' && data.conclusion === 'NONE') {
+    reasons.push('kind OBSERVATION requires a stated conclusion (NONE is only valid for kind METHODS)');
+  }
   if (data.sources.length === 0) reasons.push('no cited sources');
   for (const source of data.sources) {
     if (!source.quote) reasons.push(`source ${source.id} has no verbatim quote`);
@@ -44,6 +53,15 @@ export async function publishedObservations(now: Date = new Date()): Promise<Obs
 }
 
 // Publication month for display, e.g. "2026-W39 · September 2026".
+// True when the edition is an explicit methods/limitations memo.
+export function isMethodsOnly(entry: Observation) {
+  return entry.data.kind === 'METHODS' || entry.data.conclusion === 'NONE';
+}
+
+export function conclusionLabel(entry: Observation) {
+  return entry.data.conclusion === 'NONE' ? 'NO SCIENTIFIC CONCLUSION' : `CONCLUSION: ${entry.data.conclusion}`;
+}
+
 export function editionLabel(entry: Observation) {
   return `${entry.data.edition} · ${entry.data.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
 }

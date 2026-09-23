@@ -7,6 +7,10 @@ title: 'Week 39: what the public record showed'
 edition: 2026-W39
 date: 2026-09-28
 status: DRAFT
+# kind: OBSERVATION (data-backed findings) | METHODS (dated methods/limitations memo)
+kind: OBSERVATION
+# conclusion: NONE (methods memos only) | PRELIMINARY | SUPPORTED | INCONCLUSIVE
+conclusion: PRELIMINARY
 authors:
   - A.IRis
 scope: [eastern-paradise, chain-intelligence]

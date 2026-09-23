@@ -51,6 +51,13 @@ if (existsSync(observationsDir)) {
     if (authors.length === 0) fail('missing authors');
     if (!scalar(front, 'window')) fail('missing observation window');
 
+    const kind = scalar(front, 'kind') ?? 'OBSERVATION';
+    const conclusion = scalar(front, 'conclusion') ?? 'PRELIMINARY';
+    if (!['OBSERVATION', 'METHODS'].includes(kind)) fail(`unknown kind "${kind}"`);
+    if (!['NONE', 'PRELIMINARY', 'SUPPORTED', 'INCONCLUSIVE'].includes(conclusion)) fail(`unknown conclusion "${conclusion}"`);
+    if (kind === 'METHODS' && conclusion !== 'NONE') fail(`kind METHODS must state conclusion NONE (got ${conclusion})`);
+    if (kind === 'OBSERVATION' && conclusion === 'NONE') fail('kind OBSERVATION cannot claim NO conclusion — use kind METHODS');
+
     if (status === 'PUBLISHED') {
       published += 1;
       const urlCount = (front.match(/^\s+url:/gm) ?? []).length;
