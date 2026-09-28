@@ -63,6 +63,18 @@
       "is_fixture": false
     },
     {
+      "id": "bookmarks",
+      "name": "Bookmarks",
+      "description": "A shared home for useful links and saved references.",
+      "status": "UNVERIFIED",
+      "status_checked_at": "2026-09-28T16:59:59Z",
+      "host": "bookmarks.cryptgregresearch.org",
+      "url": "https://bookmarks.cryptgregresearch.org/",
+      "project_type": "web application",
+      "verification_note": "HTTP and Vercel domain attachment verified; HTTPS certificate is not yet serving.",
+      "is_fixture": false
+    },
+    {
       "id": "beacon-relay",
       "name": "Beacon Relay",
       "description": "An agentic + human play concept under active exploration.",
