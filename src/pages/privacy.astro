@@ -15,6 +15,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <div class="container research-body">
       <h2>1. Information We Collect</h2>
       <p>Browsing the public site does not require an account. We publish research outputs, project records, and machine-readable data indexes; no form submission is required to read them.</p>
+      <p>A public MCP mirror returns the same public JSON and no account data.</p>
       <ul>
         <li><strong>Hosting and security logs.</strong> Our hosting provider processes standard request data such as IP address, request time, browser metadata, and requested URL for reliability and abuse prevention.</li>
         <li><strong>Account information</strong>, only if you choose to sign in — described in section 2.</li>
@@ -40,6 +41,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <li><strong>Permissions are scoped.</strong> Consent is granted per application and per purpose. An application cannot read another application's records through the shared sign-in.</li>
         <li><strong>Consent is current-version based.</strong> Where an application changes what it stores or why, it will ask again rather than treating an earlier agreement as covering the new purpose.</li>
         <li><strong>No silent expansion.</strong> We do not use account data for advertising or profiling, and we do not sell it. There is no consent to withdraw for those purposes because those purposes do not exist.</li>
+        <li><strong>MCP identity access.</strong> An external MCP client can ask to use the existing Supabase account. The approval step is <code>/oauth/consent</code>. That approval shares identity only. It does not grant Finance, Bookmarks, wallet, treasury, or agent access. Revoke it by signing out on this site and deleting the OAuth grant in Supabase.</li>
       </ul>
 
       <h2>4. Cookies and Local Storage</h2>

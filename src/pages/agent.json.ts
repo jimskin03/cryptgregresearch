@@ -26,7 +26,7 @@ export const GET: APIRoute = () => apiJson({
       agents: '/api/agents.json',
       privacy: '/privacy',
     },
-    interfaces: { human: '/', simulation: site.simulationUrl },
+    interfaces: { human: '/', simulation: site.simulationUrl, mcp: 'https://mcp.cryptgregresearch.org/mcp' },
     interpretation: {
       fixture_policy: 'Records with is_fixture: true are illustrative scaffolds, not observed research results.',
       status_policy: 'Lifecycle and verification states are separate fields. Preserve both when citing a record.',
