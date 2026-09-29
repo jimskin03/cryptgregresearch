@@ -1,9 +1,15 @@
 import { publicResourceNames } from './catalog.ts';
 import { readPublic } from './fetch-public.ts';
+import {
+  DEFAULT_SUPABASE_PUBLISHABLE_KEY,
+  getProtectedResourceMetadata,
+  verifyOAuthToken,
+} from './oauth.ts';
 
 const ALLOWED_ORIGIN_HOSTS = new Set([
   'mcp.cryptgregresearch.org',
   'cryptgregresearch.org',
+  'cryptgreg-mcp.cryptgreg.workers.dev',
 ]);
 
 const SUPPORTED_PROTOCOL_VERSIONS = new Set([
@@ -12,10 +18,50 @@ const SUPPORTED_PROTOCOL_VERSIONS = new Set([
   '2026-07-28',
 ]);
 
+export interface WorkerEnv {
+  MCP_CLIENT_ID?: string;
+  SUPABASE_PUBLISHABLE_KEY?: string;
+  [key: string]: unknown;
+}
+
 export async function handleMcp(
   request: Request,
-  fetchImpl: typeof fetch = fetch,
+  fetchOrEnv?: typeof fetch | WorkerEnv,
+  envOrFetch?: WorkerEnv | typeof fetch,
+  publishableKeyArg?: string,
 ): Promise<Response> {
+  let fetchImpl: typeof fetch = fetch;
+  let env: WorkerEnv = {};
+
+  if (typeof fetchOrEnv === 'function') {
+    fetchImpl = fetchOrEnv;
+  } else if (typeof fetchOrEnv === 'object' && fetchOrEnv !== null) {
+    env = fetchOrEnv;
+  }
+
+  if (typeof envOrFetch === 'function') {
+    fetchImpl = envOrFetch;
+  } else if (typeof envOrFetch === 'object' && envOrFetch !== null) {
+    env = envOrFetch;
+  }
+
+  const publishableKey =
+    publishableKeyArg ||
+    (typeof env.SUPABASE_PUBLISHABLE_KEY === 'string' ? env.SUPABASE_PUBLISHABLE_KEY : undefined) ||
+    DEFAULT_SUPABASE_PUBLISHABLE_KEY;
+
+  const url = new URL(request.url);
+
+  if (url.pathname === '/.well-known/oauth-protected-resource') {
+    if (request.method !== 'GET') {
+      return new Response('Method Not Allowed', {
+        status: 405,
+        headers: { Allow: 'GET' },
+      });
+    }
+    return getProtectedResourceMetadata(url);
+  }
+
   const origin = request.headers.get('Origin');
   if (origin !== null && origin !== '') {
     try {
@@ -28,7 +74,6 @@ export async function handleMcp(
     }
   }
 
-  const url = new URL(request.url);
   if (url.pathname !== '/mcp') {
     return new Response('Not Found', { status: 404 });
   }
@@ -186,6 +231,14 @@ export async function handleMcp(
                   required: ['resource'],
                 },
               },
+              {
+                name: 'whoami',
+                description: 'Return the signed-in user id and email. Requires an allowlisted OAuth token. Does not grant Finance, Bookmarks, wallet, treasury, or agent access.',
+                inputSchema: {
+                  type: 'object',
+                  properties: {},
+                },
+              },
             ],
           },
         }),
@@ -206,6 +259,72 @@ export async function handleMcp(
           }),
           {
             status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        );
+      }
+
+      if (msg.params.name === 'whoami') {
+        const authHeader = request.headers.get('Authorization');
+        const challengeHeader = `Bearer resource_metadata="${url.origin}/.well-known/oauth-protected-resource", scope="openid"`;
+
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+          return new Response('Unauthorized', {
+            status: 401,
+            headers: {
+              'WWW-Authenticate': challengeHeader,
+            },
+          });
+        }
+
+        const token = authHeader.slice(7).trim();
+        if (!token) {
+          return new Response('Unauthorized', {
+            status: 401,
+            headers: {
+              'WWW-Authenticate': challengeHeader,
+            },
+          });
+        }
+
+        const authResult = await verifyOAuthToken(
+          token,
+          env.MCP_CLIENT_ID,
+          publishableKey,
+          fetchImpl,
+        );
+
+        if (!authResult.ok) {
+          return new Response('Unauthorized', {
+            status: 401,
+            headers: {
+              'WWW-Authenticate': challengeHeader,
+            },
+          });
+        }
+
+        return new Response(
+          JSON.stringify({
+            jsonrpc: '2.0',
+            id: msg.id,
+            result: {
+              content: [
+                {
+                  type: 'text',
+                  text: JSON.stringify(
+                    {
+                      id: authResult.user.id,
+                      email: authResult.user.email,
+                    },
+                    null,
+                    2,
+                  ),
+                },
+              ],
+            },
+          }),
+          {
+            status: 200,
             headers: { 'Content-Type': 'application/json' },
           },
         );
@@ -364,7 +483,7 @@ export async function handleMcp(
 }
 
 export default {
-  async fetch(request: Request, _env: unknown, _ctx: unknown): Promise<Response> {
-    return handleMcp(request, fetch);
+  async fetch(request: Request, env: unknown = {}, _ctx: unknown): Promise<Response> {
+    return handleMcp(request, fetch, (env as WorkerEnv) || {});
   },
 };

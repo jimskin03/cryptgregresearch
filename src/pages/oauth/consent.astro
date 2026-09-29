@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+Astro.response.headers.set('Content-Security-Policy', "frame-ancestors 'none'");
+---
+
+<BaseLayout title="OAuth Consent" description="Authorize an external application to connect with your Cryptgreg Research account.">
+  <section class="page-intro">
+    <div class="container">
+      <div class="eyebrow">IDENTITY OAUTH</div>
+      <h1>Authorization Request</h1>
+      <p>Authorize an external application to access your Cryptgreg Research account identity.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container research-body">
+      <div id="consent-container" class="data-panel" style="max-width: 600px; margin: 0 auto;">
+        <p id="consent-status" class="muted">Checking authorization details…</p>
+        <p id="consent-error" class="auth-message" style="color: var(--pink); font-size: 0.9rem;" hidden></p>
+
+        <div id="consent-details" hidden>
+          <div style="margin-bottom: 1.5rem;">
+            <div class="data-line">
+              <span class="muted">Application</span>
+              <strong id="client-name" style="color: var(--display); font-size: 1.1rem;"></strong>
+            </div>
+            <div class="data-line">
+              <span class="muted">Redirect URI</span>
+              <code id="redirect-uri" style="color: var(--cyan); word-break: break-all;"></code>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Requested Identity Scopes</h3>
+            <p class="muted" style="font-size: 0.8rem; margin-bottom: 0.75rem;">Allow approves this identity request as shown. It does not grant Finance, Bookmarks, wallet, treasury, or agent access.</p>
+            <div id="scopes-list" style="display: grid; gap: 0.5rem;"></div>
+          </div>
+
+          <p style="margin: 1.5rem 0; padding: 0.75rem 1rem; border-left: 2px solid var(--pink); background: rgba(255, 60, 110, 0.06); font-size: 0.88rem; color: var(--display);">
+            Signing in never grants wallet, treasury, Finance, Bookmarks, or agent access.
+          </p>
+
+          <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="button" class="button" id="consent-cancel-btn">Cancel</button>
+            <button type="button" class="button" id="consent-allow-btn">Allow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initOAuthConsent } from '@/scripts/oauth-consent';
+  initOAuthConsent();
+</script>
