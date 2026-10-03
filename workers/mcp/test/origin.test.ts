@@ -230,7 +230,7 @@ test('initialize echoes protocolVersion when supported, otherwise defaults to 20
   assert.strictEqual(body3.result.protocolVersion, '2025-11-25');
 });
 
-test('tools/list returns the public tools and whoami', async () => {
+test('tools/list returns the public tools, whoami, and read-only finance and bookmarks tools', async () => {
   const req = new Request('https://mcp.cryptgregresearch.org/mcp', {
     method: 'POST',
     headers: {
@@ -248,7 +248,7 @@ test('tools/list returns the public tools and whoami', async () => {
   assert.strictEqual(res.status, 200);
   const body = await res.json();
   const toolNames = body.result.tools.map((t: any) => t.name);
-  assert.deepStrictEqual(toolNames.sort(), ['list_catalog', 'read_public_json', 'whoami'].sort());
+  assert.deepStrictEqual(toolNames.sort(), ['list_catalog', 'list_holdings', 'list_ledger', 'list_notes', 'read_public_json', 'whoami'].sort());
 });
 
 test('tools/call list_catalog returns publicResourceNames and policy sentence', async () => {

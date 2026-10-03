@@ -5,6 +5,7 @@ import {
   getProtectedResourceMetadata,
   verifyOAuthToken,
 } from './oauth.ts';
+import { readHoldings, readLedger, readNotes } from './private-read.ts';
 
 const ALLOWED_ORIGIN_HOSTS = new Set([
   'mcp.cryptgregresearch.org',
@@ -233,7 +234,31 @@ export async function handleMcp(
               },
               {
                 name: 'whoami',
-                description: 'Return the signed-in user id and email. Requires an allowlisted OAuth token. Does not grant Finance, Bookmarks, wallet, treasury, or agent access.',
+                description: 'Return the signed-in user id and email. Requires an allowlisted OAuth token. Finance and Bookmarks data are read with list_ledger, list_holdings, and list_notes. Does not grant wallet, treasury, or agent access.',
+                inputSchema: {
+                  type: 'object',
+                  properties: {},
+                },
+              },
+              {
+                name: 'list_ledger',
+                description: 'Read the signed-in user\'s expense counted transactions. Read-only. Says when there is no expense account and returns an empty transaction list instead of an error.',
+                inputSchema: {
+                  type: 'object',
+                  properties: {},
+                },
+              },
+              {
+                name: 'list_holdings',
+                description: 'Read the signed-in user\'s portfolio securities, holdings, and the latest price for each security. Read-only. Returns empty lists when there is no portfolio account.',
+                inputSchema: {
+                  type: 'object',
+                  properties: {},
+                },
+              },
+              {
+                name: 'list_notes',
+                description: 'Read the signed-in user\'s bookmark vaults and non-deleted notes as id, title, slug, and updated_at. Does not return note content. Read-only. Returns empty lists when there is no vault.',
                 inputSchema: {
                   type: 'object',
                   properties: {},
@@ -264,7 +289,12 @@ export async function handleMcp(
         );
       }
 
-      if (msg.params.name === 'whoami') {
+      if (
+        msg.params.name === 'whoami' ||
+        msg.params.name === 'list_ledger' ||
+        msg.params.name === 'list_holdings' ||
+        msg.params.name === 'list_notes'
+      ) {
         const authHeader = request.headers.get('Authorization');
         const challengeHeader = `Bearer resource_metadata="${url.origin}/.well-known/oauth-protected-resource", scope="openid"`;
 
@@ -303,6 +333,70 @@ export async function handleMcp(
           });
         }
 
+        if (msg.params.name === 'whoami') {
+          return new Response(
+            JSON.stringify({
+              jsonrpc: '2.0',
+              id: msg.id,
+              result: {
+                content: [
+                  {
+                    type: 'text',
+                    text: JSON.stringify(
+                      {
+                        id: authResult.user.id,
+                        email: authResult.user.email,
+                      },
+                      null,
+                      2,
+                    ),
+                  },
+                ],
+              },
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' },
+            },
+          );
+        }
+
+        const read =
+          msg.params.name === 'list_ledger'
+            ? readLedger
+            : msg.params.name === 'list_holdings'
+              ? readHoldings
+              : readNotes;
+
+        const data = await read({
+          userId: authResult.user.id,
+          token,
+          publishableKey,
+          fetchImpl,
+        });
+
+        if (!data.ok) {
+          return new Response(
+            JSON.stringify({
+              jsonrpc: '2.0',
+              id: msg.id,
+              result: {
+                content: [
+                  {
+                    type: 'text',
+                    text: `PostgREST ${data.status}: ${data.message}`,
+                  },
+                ],
+                isError: true,
+              },
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' },
+            },
+          );
+        }
+
         return new Response(
           JSON.stringify({
             jsonrpc: '2.0',
@@ -311,14 +405,7 @@ export async function handleMcp(
               content: [
                 {
                   type: 'text',
-                  text: JSON.stringify(
-                    {
-                      id: authResult.user.id,
-                      email: authResult.user.email,
-                    },
-                    null,
-                    2,
-                  ),
+                  text: JSON.stringify(data.body, null, 2),
                 },
               ],
             },
