@@ -33,6 +33,10 @@ export function initAuth() {
   opener.addEventListener('click', openDialog);
   closer?.addEventListener('click', () => dialog.close());
   signup.addEventListener('click', () => setMode('signup'));
+  if (new URLSearchParams(window.location.search).get('auth') === 'signup') {
+    setMode('signup');
+    openDialog();
+  }
 
   const renderSession = (session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) => {
     if (!authArea) return;
