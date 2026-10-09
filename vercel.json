@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "android.cryptgregresearch.org" }],
+      "destination": "/android"
+    }
+  ]
+}
