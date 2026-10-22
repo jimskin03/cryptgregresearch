@@ -66,12 +66,12 @@
       "id": "bookmarks",
       "name": "Bookmarks",
       "description": "A shared home for useful links and saved references.",
-      "status": "UNVERIFIED",
-      "status_checked_at": "2026-09-28T16:59:59Z",
+      "status": "LIVE",
+      "status_checked_at": "2026-10-23T00:00:00Z",
       "host": "bookmarks.cryptgregresearch.org",
       "url": "https://bookmarks.cryptgregresearch.org/",
       "project_type": "web application",
-      "verification_note": "HTTP and Vercel domain attachment verified; HTTPS certificate is not yet serving.",
+      "verification_note": null,
       "is_fixture": false
     },
     {
