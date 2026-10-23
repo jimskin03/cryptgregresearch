@@ -56,8 +56,8 @@
       "description": "One private finance workspace for Ledger, compound growth, and ISIN-based Portfolio tracking.",
       "status": "LIVE",
       "status_checked_at": "2026-09-10T00:00:00Z",
-      "host": "expensetracker.cryptgregresearch.org",
-      "url": "https://expensetracker.cryptgregresearch.org/",
+      "host": "finance.cryptgregresearch.org",
+      "url": "https://finance.cryptgregresearch.org/",
       "project_type": "finance workspace",
       "verification_note": null,
       "is_fixture": false

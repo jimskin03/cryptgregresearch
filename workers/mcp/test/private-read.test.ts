@@ -404,7 +404,7 @@ test('matching token returns shaped ledger, holdings, and notes from PostgREST',
     assert.strictEqual(call.authorization, `Bearer ${token}`);
     assert.ok(call.href.startsWith('https://vlnocfdiexkqcnfbjhqt.supabase.co/rest/v1/'));
     assert.strictEqual(JSON.stringify(call).includes('service_role'), false);
-    assert.strictEqual(call.href.includes('expensetracker.cryptgregresearch.org'), false);
+    assert.strictEqual(call.href.includes('finance.cryptgregresearch.org'), false);
     assert.strictEqual(call.href.includes('bookmarks.cryptgregresearch.org'), false);
   }
 
