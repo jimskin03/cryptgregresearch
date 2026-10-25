@@ -6,7 +6,7 @@ info@cryptgregresearch.org asking for a tester invitation; they do not imply
 public installation is available.
 
 The homepage project registry includes Android immediately after Bookmarks,
-and both navigation components link to `/android`.
+and both navigation components link to `/android/`.
 
 ## Publication
 
@@ -30,8 +30,14 @@ hosting, import this repository into a separate Vercel project. The checked-in
    `src/data/records.ts` and navigation Android links to the subdomain URL.
 
 Until domain setup is complete, the homepage uses the functional main-site
-`/android` route. The page's canonical URL reserves the requested subdomain.
-No DNS or Vercel changes are performed by committing this configuration.
+`/android/` route, and the page's canonical URL is that same main-site URL
+(`https://cryptgregresearch.org/android/`). An earlier version pointed the
+canonical at the subdomain, but the subdomain does not serve valid HTTPS yet,
+so search engines were being told to prefer a URL that fails. Once the
+subdomain is live, pass `canonical="https://android.cryptgregresearch.org/"`
+to `SeoHead` in `src/pages/android.astro` if the subdomain should become the
+preferred URL. No DNS or Vercel changes are performed by committing this
+configuration.
 
 The supplied Play Store screenshots inform the descriptions and Early Access
 labels. They are not published as assets because they contain account-specific

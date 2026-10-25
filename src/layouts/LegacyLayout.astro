@@ -1,20 +1,21 @@
 ---
 import AuthDialog from '@/components/AuthDialog.astro';
 import LegacyHome from '@/components/LegacyHome.astro';
+import SeoHead from '@/components/SeoHead.astro';
 import { site } from '@/data/site';
 
-interface Props { title?: string; description?: string; }
-const { title = site.title, description = site.description } = Astro.props;
+interface Props { title?: string; description?: string; image?: string; }
+const { title = site.title, description = site.description, image } = Astro.props;
+const fullTitle = `${title} — ${site.name}`;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="google-site-verification" content="Tm8Xcc8QdoxI7I_5pDGOSsfVA6zRAnw7dWmLi-tWiV0" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <link rel="icon" href="data:," />
-    <title>{title} &mdash; {site.name}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <SeoHead title={fullTitle} description={description} image={image} />
   </head>
   <body class="legacy-home">
     <LegacyHome />

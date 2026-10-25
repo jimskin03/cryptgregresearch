@@ -6,12 +6,12 @@ const currentPath = Astro.url.pathname;
     <a class="brand" href="/"><span class="brand-mark">[●]</span><span>CRYPTGREG RESEARCH</span></a>
     <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
     <nav class="nav" aria-label="Primary navigation">
-      <a href="/research" aria-current={currentPath.startsWith('/research') ? 'page' : undefined}>Research</a>
-      <a href="/research/weekly" aria-current={currentPath.startsWith('/research/weekly') ? 'page' : undefined}>Weekly</a>
-      <a href="/projects" aria-current={currentPath.startsWith('/projects') ? 'page' : undefined}>Projects</a>
-      <a href="/android" aria-current={currentPath === '/android' ? 'page' : undefined}>Android</a>
+      <a href="/research/" aria-current={currentPath.startsWith('/research') ? 'page' : undefined}>Research</a>
+      <a href="/research/weekly/" aria-current={currentPath.startsWith('/research/weekly') ? 'page' : undefined}>Weekly</a>
+      <a href="/projects/" aria-current={currentPath.startsWith('/projects') ? 'page' : undefined}>Projects</a>
+      <a href="/android/" aria-current={currentPath.startsWith('/android') ? 'page' : undefined}>Android</a>
       <a href="/api/projects.json">API</a>
-      <a href="/privacy" aria-current={currentPath === '/privacy' ? 'page' : undefined}>Privacy</a>
+      <a href="/privacy/" aria-current={currentPath.startsWith('/privacy') ? 'page' : undefined}>Privacy</a>
       <a href="https://cryptgregresearch.org/">Main site</a>
       <button class="button" data-auth-open type="button">Sign in</button>
     </nav>

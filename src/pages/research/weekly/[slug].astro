@@ -35,7 +35,7 @@ const roles = [
     <span class="status status-draft">{entry.data.kind}</span>
     <span>{conclusionLabel(entry)}</span>
     <span>window {entry.data.window.start.toISOString().slice(0, 10)} → {entry.data.window.end.toISOString().slice(0, 10)} UTC</span>
-    {entry.data.scope.map((id) => <a href={`/projects/${id}`}>{id}</a>)}
+    {entry.data.scope.map((id) => <a href={`/projects/${id}/`}>{id}</a>)}
   </div>
   {methodsOnly && (
     <div class="notice" role="note">
